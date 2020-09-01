@@ -1,0 +1,43 @@
+package com.jm.dto;
+
+public class CuratorForCourseDto {
+
+    private Long curatorId;
+    private String email;
+    private String firstName;
+    private String lastName;
+
+    /* GETTERS AND SETTERS */
+
+    public Long getCuratorId() {
+        return curatorId;
+    }
+
+    public void setCuratorId(Long curatorId) {
+        this.curatorId = curatorId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+}
