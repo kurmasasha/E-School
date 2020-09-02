@@ -59,14 +59,9 @@
             <configuration>
                 <images>
                     <image>
-                        <name>app</name>
+                        <name>E-School</name>
                         <build>
-                            <dockerFileDir>${project.basedir}/src/main/docker</dockerFileDir>
-                            <assembly>
-                                <mode>dir</mode>
-                                <targetDir>/app</targetDir>
-                                <descriptor>${project.basedir}/src/main/docker/assembly.xml</descriptor>
-                            </assembly>
+                            <dockerFileDir>${project.basedir}/src/main/resources</dockerFileDir>
                         </build>
                     </image>
                 </images>
