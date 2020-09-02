@@ -9,6 +9,13 @@ public class TheoryTaskPostDto {
     private String description;
     private List<TheoryTaskAnswerDto> answers;
 
+    public TheoryTaskPostDto(String title, Integer points, String description, List<TheoryTaskAnswerDto> answers) {
+        this.title = title;
+        this.points = points;
+        this.description = description;
+        this.answers = answers;
+    }
+
     /* GETTERS AND SETTERS */
 
     public String getTitle() {

@@ -6,6 +6,12 @@ public class UserPostDto {
     private String firstName;
     private String lastName;
 
+    public UserPostDto(String email, String firstName, String lastName) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     /* GETTERS AND SETTERS */
 
     public String getEmail() {

@@ -6,6 +6,12 @@ public class OrderingTaskItemDto {
     private String text;
     private Integer position;
 
+    public OrderingTaskItemDto(Long itemId, String text, Integer position) {
+        this.itemId = itemId;
+        this.text = text;
+        this.position = position;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getItemId() {

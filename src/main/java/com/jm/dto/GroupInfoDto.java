@@ -6,6 +6,12 @@ public class GroupInfoDto {
     private String name;
     private Long teacherId;
 
+    public GroupInfoDto(Long groupId, String name, Long teacherId) {
+        this.groupId = groupId;
+        this.name = name;
+        this.teacherId = teacherId;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getGroupId() {

@@ -6,6 +6,12 @@ public class ChapterDto {
     private String name;
     private Integer position;
 
+    public ChapterDto(Long chapterId, String name, Integer position) {
+        this.chapterId = chapterId;
+        this.name = name;
+        this.position = position;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getChapterId() {

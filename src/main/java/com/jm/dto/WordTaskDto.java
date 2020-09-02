@@ -8,6 +8,14 @@ public class WordTaskDto {
     private String description;
     private String answer;
 
+    public WordTaskDto(Long taskId, String tittle, Integer points, String description, String answer) {
+        this.taskId = taskId;
+        this.tittle = tittle;
+        this.points = points;
+        this.description = description;
+        this.answer = answer;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getTaskId() {

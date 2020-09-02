@@ -9,6 +9,13 @@ public class OrderingTaskPostDto {
     private String description;
     private List<OrderingTaskAnswerDto> items;
 
+    public OrderingTaskPostDto(String title, Integer points, String description, List<OrderingTaskAnswerDto> items) {
+        this.title = title;
+        this.points = points;
+        this.description = description;
+        this.items = items;
+    }
+
     /* GETTERS AND SETTERS */
 
     public String getTitle() {

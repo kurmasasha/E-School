@@ -10,6 +10,14 @@ public class ResponseDto<T> {
     private List<FieldError> errors;
     private PageDto<T> data;
 
+    public ResponseDto(Integer code, Boolean success, String text, List<FieldError> errors, PageDto<T> data) {
+        this.code = code;
+        this.success = success;
+        this.text = text;
+        this.errors = errors;
+        this.data = data;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Integer getCode() {

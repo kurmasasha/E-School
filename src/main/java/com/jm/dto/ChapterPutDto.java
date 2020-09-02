@@ -5,6 +5,11 @@ public class ChapterPutDto {
     private Long chapterId;
     private String name;
 
+    public ChapterPutDto(Long chapterId, String name) {
+        this.chapterId = chapterId;
+        this.name = name;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getChapterId() {

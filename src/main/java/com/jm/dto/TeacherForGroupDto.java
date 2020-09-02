@@ -7,6 +7,13 @@ public class TeacherForGroupDto {
     private String firstName;
     private String lastName;
 
+    public TeacherForGroupDto(Long teacherId, String email, String firstName, String lastName) {
+        this.teacherId = teacherId;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getTeacherId() {

@@ -6,6 +6,12 @@ public class LectureTaskPostDto {
     private Integer points;
     private String description;
 
+    public LectureTaskPostDto(String title, Integer points, String description) {
+        this.title = title;
+        this.points = points;
+        this.description = description;
+    }
+
     /* GETTERS AND SETTERS */
 
     public String getTitle() {

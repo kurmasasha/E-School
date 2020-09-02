@@ -5,6 +5,11 @@ public class FieldError {
     private String field;
     private String text;
 
+    public FieldError(String field, String text) {
+        this.field = field;
+        this.text = text;
+    }
+
     /* GETTERS AND SETTERS */
 
     public String getField() {

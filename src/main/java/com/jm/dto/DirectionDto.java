@@ -5,6 +5,11 @@ public class DirectionDto {
     private Long directionId;
     private String name;
 
+    public DirectionDto(Long directionId, String name) {
+        this.directionId = directionId;
+        this.name = name;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getDirectionId() {

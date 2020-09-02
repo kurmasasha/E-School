@@ -7,6 +7,13 @@ public class WordTaskPostDto {
     private String description;
     private String answer;
 
+    public WordTaskPostDto(String title, Integer points, String description, String answer) {
+        this.title = title;
+        this.points = points;
+        this.description = description;
+        this.answer = answer;
+    }
+
     /* GETTERS AND SETTERS */
 
     public String getTitle() {

@@ -7,6 +7,13 @@ public class LectureTaskDto {
     private Integer points;
     private String description;
 
+    public LectureTaskDto(Long taskId, String title, Integer points, String description) {
+        this.taskId = taskId;
+        this.title = title;
+        this.points = points;
+        this.description = description;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getTaskId() {

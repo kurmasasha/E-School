@@ -9,6 +9,16 @@ public class CoursePageDto {
     private Integer groupsCount; //(количество групп, в которых находится курс)
     private Boolean available;
 
+    public CoursePageDto(Long courseId, String name, String directionName, String curatorFullName,
+                         Integer groupsCount, Boolean available) {
+        this.courseId = courseId;
+        this.name = name;
+        this.directionName = directionName;
+        this.curatorFullName = curatorFullName;
+        this.groupsCount = groupsCount;
+        this.available = available;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getCourseId() {

@@ -7,6 +7,13 @@ public class GroupPutDto {
     private Long courseId;
     private Long teacherId;
 
+    public GroupPutDto(Long groupId, String name, Long courseId, Long teacherId) {
+        this.groupId = groupId;
+        this.name = name;
+        this.courseId = courseId;
+        this.teacherId = teacherId;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getGroupId() {

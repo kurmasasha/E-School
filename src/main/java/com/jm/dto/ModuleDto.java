@@ -7,6 +7,13 @@ public class ModuleDto {
     private String description;
     private Integer position;
 
+    public ModuleDto(Long moduleId, String name, String description, Integer position) {
+        this.moduleId = moduleId;
+        this.name = name;
+        this.description = description;
+        this.position = position;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getModuleId() {

@@ -7,6 +7,13 @@ public class UserDto {
     private String firstName;
     private String lastName;
 
+    public UserDto(Long userId, String email, String firstName, String lastName) {
+        this.userId = userId;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getUserId() {

@@ -12,6 +12,17 @@ public class StudentUserDto {
     private List<GroupInfoDto> groups;
     private Boolean enabled;
 
+    public StudentUserDto(Long studentId, String email, String firstName, String lastName, String directionName,
+                          List<GroupInfoDto> groups, Boolean enabled) {
+        this.studentId = studentId;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.directionName = directionName;
+        this.groups = groups;
+        this.enabled = enabled;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getStudentId() {

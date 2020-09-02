@@ -5,6 +5,11 @@ public class ModulePostDto {
     private String name;
     private String description;
 
+    public ModulePostDto(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     /* GETTERS AND SETTERS */
 
     public String getName() {

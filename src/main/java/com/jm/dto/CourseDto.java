@@ -11,6 +11,18 @@ public class CourseDto {
     private String about;
     private String teacher;
 
+    public CourseDto(Long courseId, String name, Long directionId, Long curatorId, Boolean available,
+                     String htmlBody, String about, String teacher) {
+        this.courseId = courseId;
+        this.name = name;
+        this.directionId = directionId;
+        this.curatorId = curatorId;
+        this.available = available;
+        this.htmlBody = htmlBody;
+        this.about = about;
+        this.teacher = teacher;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getCourseId() {

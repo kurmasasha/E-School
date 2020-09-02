@@ -6,6 +6,12 @@ public class TheoryTaskAnswerDto {
     private String text;
     private Boolean right;
 
+    public TheoryTaskAnswerDto(Long id, String text, Boolean right) {
+        this.id = id;
+        this.text = text;
+        this.right = right;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getId() {

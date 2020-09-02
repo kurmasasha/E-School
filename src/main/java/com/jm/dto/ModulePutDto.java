@@ -6,6 +6,12 @@ public class ModulePutDto {
     private String name;
     private String description;
 
+    public ModulePutDto(Long moduleId, String name, String description) {
+        this.moduleId = moduleId;
+        this.name = name;
+        this.description = description;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getModuleId() {

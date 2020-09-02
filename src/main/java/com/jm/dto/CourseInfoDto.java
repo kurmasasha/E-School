@@ -7,6 +7,13 @@ public class CourseInfoDto {
     private String directionName;
     private Long curatorId;
 
+    public CourseInfoDto(Long courseId, String name, String directionName, Long curatorId) {
+        this.courseId = courseId;
+        this.name = name;
+        this.directionName = directionName;
+        this.curatorId = curatorId;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getCourseId() {

@@ -8,6 +8,14 @@ public class CourseTaskDto {
     private Integer courseTaskPosition;
     private String taskType;
 
+    public CourseTaskDto(Long courseTaskId, Long taskId, String taskTitle, Integer courseTaskPosition, String taskType) {
+        this.courseTaskId = courseTaskId;
+        this.taskId = taskId;
+        this.taskTitle = taskTitle;
+        this.courseTaskPosition = courseTaskPosition;
+        this.taskType = taskType;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getCourseTaskId() {

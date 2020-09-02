@@ -10,6 +10,17 @@ public class GroupPageDto {
     private String teacherFullName; //(lastName + firstName)
     private Integer studentsCount;
 
+    public GroupPageDto(Long groupId, String name, String courseName, String directionName, String curatorFullName,
+                        String teacherFullName, Integer studentsCount) {
+        this.groupId = groupId;
+        this.name = name;
+        this.courseName = courseName;
+        this.directionName = directionName;
+        this.curatorFullName = curatorFullName;
+        this.teacherFullName = teacherFullName;
+        this.studentsCount = studentsCount;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getGroupId() {

@@ -7,6 +7,13 @@ public class CuratorForCourseDto {
     private String firstName;
     private String lastName;
 
+    public CuratorForCourseDto(Long curatorId, String email, String firstName, String lastName) {
+        this.curatorId = curatorId;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getCuratorId() {

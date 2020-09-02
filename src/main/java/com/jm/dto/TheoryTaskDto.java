@@ -10,6 +10,14 @@ public class TheoryTaskDto {
     private String description;
     private List<TheoryTaskAnswerDto> answers;
 
+    public TheoryTaskDto(Long taskId, String title, Integer points, String description, List<TheoryTaskAnswerDto> answers) {
+        this.taskId = taskId;
+        this.title = title;
+        this.points = points;
+        this.description = description;
+        this.answers = answers;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getTaskId() {

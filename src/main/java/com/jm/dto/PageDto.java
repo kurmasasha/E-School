@@ -10,6 +10,14 @@ public class PageDto<UserDto> {
     private Integer countOnPage;
     private List<UserDto> entities;
 
+    public PageDto(Integer totalEntitiesCount, Integer currentPage, Integer pageCount, Integer countOnPage, List<UserDto> entities) {
+        this.totalEntitiesCount = totalEntitiesCount;
+        this.currentPage = currentPage;
+        this.pageCount = pageCount;
+        this.countOnPage = countOnPage;
+        this.entities = entities;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Integer getTotalEntitiesCount() {

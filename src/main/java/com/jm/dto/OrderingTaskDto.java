@@ -10,6 +10,14 @@ public class OrderingTaskDto {
     private String description;
     private List<OrderingTaskItemDto> items;
 
+    public OrderingTaskDto(Long taskId, String title, Integer points, String description, List<OrderingTaskItemDto> items) {
+        this.taskId = taskId;
+        this.title = title;
+        this.points = points;
+        this.description = description;
+        this.items = items;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getTaskId() {
