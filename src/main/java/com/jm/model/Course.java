@@ -1,5 +1,7 @@
 package com.jm.model;
 
+import com.jm.dto.CourseDto;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -22,6 +24,15 @@ public class Course {
 
     public Course() {
 
+    }
+
+    public Course(CourseDto courseDto) {
+        this.id = courseDto.getCourseId();
+        this.name = courseDto.getName();
+        this.htmlBody = courseDto.getHtmlBody();
+        this.aboutTeacherInfo = courseDto.getTeacher();
+        this.isAvailable = courseDto.getAvailable();
+        this.direction.setId(courseDto.getDirectionId());
     }
 
     public Long getId() {

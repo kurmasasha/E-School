@@ -1,5 +1,7 @@
 package com.jm.model;
 
+import com.jm.dto.UserDto;
+
 import javax.management.relation.Role;
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,6 +25,13 @@ public class User {
 
     public User() {
 
+    }
+
+    public User(UserDto userDto) {
+        this.id = userDto.getUserId();
+        this.email = userDto.getEmail();
+        this.firstName = userDto.getFirstName();
+        this.password = userDto.getLastName();
     }
 
     public Long getId() {
