@@ -1,5 +1,6 @@
 package com.jm.repository;
 
+import com.jm.dto.UserDto;
 import com.jm.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,10 +9,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserDto, Long> {
+    List<UserDto> getAllUserDto();
 
-    @Query("SELECT FROM User")
-    List<User> getAllUsers();
+    void deleteById(Long aLong);
 
-    User getUserById(Long userId);
+    UserDto getUserDtoById(Long userId);
 }
