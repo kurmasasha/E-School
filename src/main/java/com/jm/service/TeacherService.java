@@ -1,18 +1,21 @@
 package com.jm.service;
 
-import com.jm.dto.ResponseDto;
 import com.jm.dto.TeacherUserDto;
 import com.jm.dto.UserDto;
 
+import java.util.List;
+
 public interface TeacherService {
 
-    void updateTeacherInfo(UserDto editedTeacherInfo, Long teacherId);
+    boolean updateTeacherInfo(UserDto editedTeacherInfo, Long teacherId);
 
-    void deactivateTeacherById(Long teacherId);
+    boolean deactivateTeacherById(Long teacherId);
 
-    void activateTeacherById(Long teacherId);
+    boolean activateTeacherById(Long teacherId);
 
-    ResponseDto<TeacherUserDto> getTeacherResponse(Integer page, String search);
+    List<TeacherUserDto> getTeacherResponse(Integer page, String search);
 
     UserDto getTeacherById(Long teacherId);
+
+    TeacherUserDto getTeacherUserDtoByTeacherId(Long teacherId);
 }

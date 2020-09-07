@@ -1,12 +1,13 @@
 package com.jm.service;
 
-import com.jm.dto.*;
+import com.jm.dto.TeacherUserDto;
+import com.jm.dto.UserDto;
 import com.jm.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ITeacherService implements TeacherService {
@@ -19,39 +20,53 @@ public class ITeacherService implements TeacherService {
     }
 
     @Override
-    public void updateTeacherInfo(UserDto editedTeacherInfo, Long teacherId) {
-        User teacher = repository.getTeacherById(teacherId);
-        if (teacher != null) {
-            repository.save(editedTeacherInfo);
+    public boolean updateTeacherInfo(UserDto editedTeacherInfo, Long teacherId) {
+        TeacherUserDto teacher = repository.getTeacherUserDtoByTeacherId(teacherId);
+        if (Objects.nonNull(teacher)) {
+            teacher.setEmail(editedTeacherInfo.getEmail());
+            teacher.setFirstName(editedTeacherInfo.getFirstName());
+            teacher.setLastName(editedTeacherInfo.getLastName());
+            repository.save(teacher);
+            return true;
         }
+        return false;
     }
 
     @Override
-    public void deactivateTeacherById(Long teacherId) {
-        User teacher = repository.getTeacherById(teacherId);
-        teacher.setEnabled(false);
-        repository.save(teacher);
+    public boolean deactivateTeacherById(Long teacherId) {
+        TeacherUserDto teacher = repository.getTeacherUserDtoByTeacherId(teacherId);
+        if (Objects.nonNull(teacher)) {
+            teacher.setEnabled(false);
+            repository.save(teacher);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public void activateTeacherById(Long teacherId) {
-        User teacher = repository.getTeacherById(teacherId);
-        teacher.setEnabled(true);
-        repository.save(teacher);
+    public boolean activateTeacherById(Long teacherId) {
+        TeacherUserDto teacher = repository.getTeacherUserDtoByTeacherId(teacherId);
+        if (Objects.nonNull(teacher)) {
+            teacher.setEnabled(true);
+            repository.save(teacher);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public ResponseDto<TeacherUserDto> getTeacherResponse(Integer page, String search) {
-        List<TeacherUserDto> teachers = repository.getAllTeachers();
-        // dummy FieldError, for now
-        List<FieldError> errors = new ArrayList<>();
-        // pageCount and countOn page are 0, for now
-        PageDto<TeacherUserDto> pageDto = new PageDto<>(teachers.size(), page, 0, 0, teachers);
-        return new ResponseDto<>(200, true, search, errors, pageDto);
+    public List<TeacherUserDto> getTeacherResponse(Integer page, String search) {
+        return repository.getAllTeachers();
     }
 
     @Override
     public UserDto getTeacherById(Long teacherId) {
-        return repository.getTeacherById(teacherId);
+        TeacherUserDto tUserDto = repository.getTeacherUserDtoByTeacherId(teacherId);
+        return new UserDto(tUserDto.getTeacherId(), tUserDto.getEmail(), tUserDto.getFirstName(), tUserDto.getLastName());
+    }
+
+    @Override
+    public TeacherUserDto getTeacherUserDtoByTeacherId(Long teacherId) {
+        return repository.getTeacherUserDtoByTeacherId(teacherId);
     }
 }
