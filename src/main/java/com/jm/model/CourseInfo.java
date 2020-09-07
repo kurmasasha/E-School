@@ -1,5 +1,7 @@
 package com.jm.model;
 
+import com.jm.dto.CourseInfoDto;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,6 +23,13 @@ public class CourseInfo {
 
     public CourseInfo() {
 
+    }
+
+    public CourseInfo(CourseInfoDto courseInfoDto) {
+        course.setId(courseInfoDto.getCourseId());
+        course.setName(courseInfoDto.getName());
+        course.getDirection().setName(courseInfoDto.getDirectionName());
+        curator.setId(courseInfoDto.getCuratorId());
     }
 
     public Long getId() {

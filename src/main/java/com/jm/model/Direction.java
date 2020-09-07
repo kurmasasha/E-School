@@ -1,5 +1,7 @@
 package com.jm.model;
 
+import com.jm.dto.DirectionDto;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +17,11 @@ public class Direction {
 
     public Direction() {
 
+    }
+
+    public Direction(DirectionDto directionDto) {
+        id = directionDto.getDirectionId();
+        name = directionDto.getName();
     }
 
     public Long getId() {
