@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -25,39 +25,39 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void updateStudent(UserDto updatedStudent, Long studentId) {
-        User student = studentRepository.getStudentById(studentId);
-        if (Objects.nonNull(student)) {
-            student.setFirstName(updatedStudent.getFirstName());
-            student.setLastName(updatedStudent.getLastName());
-            student.setEmail(updatedStudent.getEmail());
-            student.setId(updatedStudent.getUserId());
-            studentRepository.save(student);
+        Optional<User> student = studentRepository.findById(studentId);
+        if (student.isPresent()) {
+            student.get().setFirstName(updatedStudent.getFirstName());
+            student.get().setLastName(updatedStudent.getLastName());
+            student.get().setEmail(updatedStudent.getEmail());
+            student.get().setId(updatedStudent.getUserId());
+            studentRepository.save(student.get());
         }
 
     }
 
     @Override
     public void activateStudentById(Long studentId) {
-        User student = studentRepository.getStudentById(studentId);
-        student.setEnabled(true);
-        studentRepository.save(student);
+        Optional<User> student = studentRepository.findById(studentId);
+        student.ifPresent(user -> user.setEnabled(true));
+        studentRepository.save(student.get());
     }
 
     @Override
     public void deactivateStudentById(Long studentId) {
-        User student = studentRepository.getStudentById(studentId);
-        student.setEnabled(false);
-        studentRepository.save(student);
+        Optional<User> student = studentRepository.findById(studentId);
+        student.ifPresent(user -> user.setEnabled(false));
+        studentRepository.save(student.get());
     }
 
     @Override
     public ResponseDto<StudentUserDto> getStudentResponse(Integer page, String search) {
-        List<StudentUserDto> students = studentRepository.getAllStudents();
+        List<User> students = studentRepository.findAll();
         return new ResponseDto<>(HttpStatus.ACCEPTED, true, search, new ArrayList<FieldError>(), students);
     }
 
     @Override
     public UserDto getStudentById(Long studentId) {
-        return studentRepository.getStudentById(studentId);
+        return studentRepository.findById(studentId);
     }
 }

@@ -7,6 +7,7 @@ import com.jm.dto.UserDto;
 import com.jm.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/api/admin/user/student")
 public class StudentRestController {
