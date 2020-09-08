@@ -3,19 +3,17 @@ package com.jm.service;
 import com.jm.dto.TeacherUserDto;
 import com.jm.dto.UserDto;
 import com.jm.repository.TeacherRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 
 @Service
-public class ITeacherService implements TeacherService {
+public class TeacherServiceImpl implements TeacherService {
 
-    private TeacherRepository repository;
+    private final TeacherRepository repository;
 
-    @Autowired
-    private void setRepository(TeacherRepository repository) {
+    public TeacherServiceImpl(TeacherRepository repository) {
         this.repository = repository;
     }
 
@@ -55,14 +53,19 @@ public class ITeacherService implements TeacherService {
     }
 
     @Override
-    public List<TeacherUserDto> getTeacherResponse(Integer page, String search) {
-        return repository.getAllTeachers();
+    public List<TeacherUserDto> getTeachersBySearch(String search) {
+        if (search.isEmpty()) {
+            return repository.getAllTeachers();
+        } else {
+            return repository.getAllBySearch(search);
+        }
     }
 
     @Override
     public UserDto getTeacherById(Long teacherId) {
-        TeacherUserDto tUserDto = repository.getTeacherUserDtoByTeacherId(teacherId);
-        return new UserDto(tUserDto.getTeacherId(), tUserDto.getEmail(), tUserDto.getFirstName(), tUserDto.getLastName());
+        TeacherUserDto teacherUserDto = repository.getTeacherUserDtoByTeacherId(teacherId);
+        return new UserDto(teacherUserDto.getTeacherId(), teacherUserDto.getEmail(),
+                teacherUserDto.getFirstName(), teacherUserDto.getLastName());
     }
 
     @Override

@@ -13,7 +13,7 @@ public interface TeacherService {
 
     boolean activateTeacherById(Long teacherId);
 
-    List<TeacherUserDto> getTeacherResponse(Integer page, String search);
+    List<TeacherUserDto> getTeachersBySearch(String search);
 
     UserDto getTeacherById(Long teacherId);
 
