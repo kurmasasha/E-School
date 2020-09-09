@@ -1,17 +1,12 @@
 package com.jm.service;
 
-import com.jm.dto.FieldError;
-import com.jm.dto.ResponseDto;
 import com.jm.dto.StudentUserDto;
 import com.jm.dto.UserDto;
-import com.jm.model.User;
 import com.jm.repository.StudentRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -24,40 +19,47 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void updateStudent(UserDto updatedStudent, Long studentId) {
-        Optional<User> student = studentRepository.findById(studentId);
-        if (student.isPresent()) {
-            student.get().setFirstName(updatedStudent.getFirstName());
-            student.get().setLastName(updatedStudent.getLastName());
-            student.get().setEmail(updatedStudent.getEmail());
-            student.get().setId(updatedStudent.getUserId());
-            studentRepository.save(student.get());
+    public boolean updateStudent(UserDto updatedStudent, Long studentId) {
+        StudentUserDto student = studentRepository.getStudentUserDtoByStudentId(studentId);
+        if (Objects.nonNull(student)) {
+            student.setFirstName(updatedStudent.getFirstName());
+            student.setLastName(updatedStudent.getLastName());
+            student.setEmail(updatedStudent.getEmail());
+            studentRepository.save(student);
+            return true;
         }
-
+        return false;
     }
 
     @Override
-    public void activateStudentById(Long studentId) {
-        Optional<User> student = studentRepository.findById(studentId);
-        student.ifPresent(user -> user.setEnabled(true));
-        studentRepository.save(student.get());
+    public boolean activateStudentById(Long studentId) {
+        StudentUserDto student = studentRepository.getStudentUserDtoByStudentId(studentId);
+        if (Objects.nonNull(student)) {
+            student.setEnabled(true);
+            studentRepository.save(student);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public void deactivateStudentById(Long studentId) {
-        Optional<User> student = studentRepository.findById(studentId);
-        student.ifPresent(user -> user.setEnabled(false));
-        studentRepository.save(student.get());
+    public boolean deactivateStudentById(Long studentId) {
+        StudentUserDto student = studentRepository.getStudentUserDtoByStudentId(studentId);
+        if (Objects.nonNull(student)) {
+            student.setEnabled(false);
+            studentRepository.save(student);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public ResponseDto<StudentUserDto> getStudentResponse(Integer page, String search) {
-        List<User> students = studentRepository.findAll();
-        return new ResponseDto<>(HttpStatus.ACCEPTED, true, search, new ArrayList<FieldError>(), students);
+    public List<StudentUserDto> getStudentBySearch(String search) {
+       return search.isEmpty()? studentRepository.findAll() : studentRepository.findAllBysearch(search);
     }
 
     @Override
-    public UserDto getStudentById(Long studentId) {
-        return studentRepository.findById(studentId);
+    public StudentUserDto getStudentById(Long studentId) {
+        return studentRepository.getStudentUserDtoByStudentId(studentId);
     }
 }

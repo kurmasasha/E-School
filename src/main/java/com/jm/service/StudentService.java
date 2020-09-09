@@ -1,20 +1,18 @@
 package com.jm.service;
 
-import com.jm.dto.ResponseDto;
 import com.jm.dto.StudentUserDto;
 import com.jm.dto.UserDto;
-import com.jm.model.User;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface StudentService {
-    void updateStudent(UserDto updatedStudent, Long studentId);
+    boolean updateStudent(UserDto updatedStudent, Long studentId);
 
-    void activateStudentById(Long studentId);
+    boolean activateStudentById(Long studentId);
 
-    void deactivateStudentById(Long studentId);
+    boolean deactivateStudentById(Long studentId);
 
-    ResponseDto<StudentUserDto> getStudentResponse(Integer page, String search);
+    List<StudentUserDto> getStudentBySearch(String search);
 
-    Optional<User> getStudentById(Long studentId);
+    StudentUserDto getStudentById(Long studentId);
 }
