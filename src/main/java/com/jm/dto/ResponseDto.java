@@ -1,23 +1,18 @@
 package com.jm.dto;
 
-import java.util.List;
-
 public class ResponseDto<T> {
 
     private Integer code;
     private Boolean success;
     private String text;
-    private List<FieldError> errors;
-    private PageDto<T> data;
+    private T data;
 
-    public ResponseDto(Integer code, Boolean success, String text, List<FieldError> errors, PageDto<T> data) {
+    public ResponseDto(Integer code, Boolean success, String text, T data) {
         this.code = code;
         this.success = success;
         this.text = text;
-        this.errors = errors;
         this.data = data;
     }
-
     /* GETTERS AND SETTERS */
 
     public Integer getCode() {
@@ -44,19 +39,60 @@ public class ResponseDto<T> {
         this.text = text;
     }
 
-    public List<FieldError> getErrors() {
-        return errors;
-    }
-
-    public void setErrors(List<FieldError> errors) {
-        this.errors = errors;
-    }
-
-    public PageDto<T> getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(PageDto<T> data) {
+    public void setData(T data) {
         this.data = data;
     }
+
+
+    public ResponseDto() {}
+
+    public static ResponseBuilder<?> error(){
+        return new ResponseBuilder<>(404, false);
+    }
+
+    public static ResponseBuilder<?> ok(){
+        return new ResponseBuilder<>(200, true);
+    }
+
+    public static <T> ResponseBuilder<T> ok(T object){
+        return new ResponseBuilder<>(object);
+    }
+
+
+    private static class ResponseBuilder<T>{
+
+        private final ResponseDto<T> build = new ResponseDto<>();
+
+        public ResponseBuilder(Integer status, Boolean success) {
+            build.setCode(status);
+            build.setSuccess(success);
+        }
+
+        public ResponseBuilder(T object) {
+            build.setData(object);
+            build.setCode(200);
+            build.setSuccess(true);
+        }
+
+        public ResponseBuilder<?> code(Integer code){
+            build.setCode(code);
+            return this;
+        }
+
+        public ResponseBuilder<?> text(String text){
+            build.setText(text);
+            return this;
+        }
+
+        public ResponseDto<?> build(){
+            return build;
+        }
+
+    }
+
+
 }

@@ -1,5 +1,7 @@
 package com.jm.model;
 
+import com.jm.dto.CourseTaskDto;
+
 import javax.persistence.*;
 
 @Entity
@@ -21,6 +23,14 @@ public class CourseTask {
 
     public CourseTask() {
 
+    }
+
+    public CourseTask(CourseTaskDto courseTaskDto) {
+        this.id = courseTaskDto.getCourseTaskId();
+        this.task.setId(courseTaskDto.getTaskId());
+        this.position = courseTaskDto.getCourseTaskPosition();
+        this.task.setTitle(courseTaskDto.getTaskTitle());
+        this.task.setType(courseTaskDto.getTaskType());
     }
 
     public Long getId() {
