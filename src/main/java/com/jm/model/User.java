@@ -7,10 +7,11 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
-    @Column(name = "id_user")
+    @GeneratedValue
     private Long id;
 
     private String email;
