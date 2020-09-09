@@ -5,9 +5,9 @@ public class ResponseDto<T> {
     private Integer code;
     private Boolean success;
     private String text;
-    private PageDto<T> data;
+    private T data;
 
-    public ResponseDto(Integer code, Boolean success, String text, PageDto<T> data) {
+    public ResponseDto(Integer code, Boolean success, String text, T data) {
         this.code = code;
         this.success = success;
         this.text = text;
@@ -39,51 +39,51 @@ public class ResponseDto<T> {
         this.text = text;
     }
 
-    public PageDto<T> getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(PageDto<T> data) {
+    public void setData(T data) {
         this.data = data;
     }
 
 
     public ResponseDto() {}
 
-    public static ResponseBuilder error(){
-        return new ResponseBuilder(404, false);
+    public static ResponseBuilder<?> error(){
+        return new ResponseBuilder<>(404, false);
     }
 
-    public static ResponseBuilder ok(){
-        return new ResponseBuilder(200, true);
+    public static ResponseBuilder<?> ok(){
+        return new ResponseBuilder<>(200, true);
     }
 
-    public static <T> ResponseBuilder ok(T object){
-        return new <T> ResponseBuilder(object);
+    public static <T> ResponseBuilder<T> ok(T object){
+        return new ResponseBuilder<>(object);
     }
 
 
-    private static class ResponseBuilder{
+    private static class ResponseBuilder<T>{
 
-        private static final ResponseDto<?> build = new ResponseDto<>();
+        private final ResponseDto<T> build = new ResponseDto<>();
 
         public ResponseBuilder(Integer status, Boolean success) {
             build.setCode(status);
             build.setSuccess(success);
         }
 
-        public <T> ResponseBuilder(T object) {
-            build.setData((PageDto) object);
+        public ResponseBuilder(T object) {
+            build.setData(object);
             build.setCode(200);
             build.setSuccess(true);
         }
 
-        public ResponseBuilder code(Integer code){
+        public ResponseBuilder<?> code(Integer code){
             build.setCode(code);
             return this;
         }
 
-        public ResponseBuilder text(String text){
+        public ResponseBuilder<?> text(String text){
             build.setText(text);
             return this;
         }
@@ -93,5 +93,6 @@ public class ResponseDto<T> {
         }
 
     }
+
 
 }
