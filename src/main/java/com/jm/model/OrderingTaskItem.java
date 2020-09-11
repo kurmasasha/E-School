@@ -1,5 +1,7 @@
 package com.jm.model;
 
+import com.jm.dto.OrderingTaskAnswerDto;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +20,11 @@ public class OrderingTaskItem {
 
     public OrderingTaskItem() {
 
+    }
+
+    public OrderingTaskItem(OrderingTaskAnswerDto orderingTaskAnswerDto) {
+        position = orderingTaskAnswerDto.getPosition();
+        itemText = orderingTaskAnswerDto.getText();
     }
 
     public Long getId() {
