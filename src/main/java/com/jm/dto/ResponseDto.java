@@ -59,12 +59,10 @@ public class ResponseDto<T> {
     }
 
     public static <T> ResponseDto<T> ok(T object){
-        ResponseDto<T> build = new ResponseDto<>();
-        build.setData(object);
-        build.setCode(200);
-        build.setSuccess(true);
-        return build;
+
+        return new ResponseBuilder<T>(object).build();
     }
+
 
     public static class ResponseBuilder<T>{
 
@@ -73,6 +71,12 @@ public class ResponseDto<T> {
         public ResponseBuilder(Integer status, Boolean success) {
             build.setCode(status);
             build.setSuccess(success);
+        }
+
+        public ResponseBuilder(T object) {
+            build.setData(object);
+            build.setCode(200);
+            build.setSuccess(true);
         }
 
         public ResponseBuilder<?> code(Integer code){
@@ -85,7 +89,7 @@ public class ResponseDto<T> {
             return this;
         }
 
-        public ResponseDto<?> build(){
+        public ResponseDto<T> build(){
             return build;
         }
 
