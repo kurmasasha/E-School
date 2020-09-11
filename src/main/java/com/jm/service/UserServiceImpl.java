@@ -1,17 +1,18 @@
 package com.jm.service;
 
-
 import com.jm.dto.UserDto;
 import com.jm.dto.UserPostDto;
 import com.jm.model.User;
-import com.jm.repository.UserRepository;
+import com.jm.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+
     private final UserRepository userRepository;
 
     @Autowired
@@ -26,12 +27,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getAllUserDto(String search) {
-        if (search.isEmpty()) {
-            return userRepository.getAllUserDto();
-        } else {
+        List<UserDto> userDtoList = new ArrayList<>();
 
-            return userRepository.getAllBySearch(search);
+        if (search.isEmpty()) {
+            for (User u : userRepository.getAllUser()) {
+                userDtoList.add(new UserDto(u.getId(), u.getEmail(), u.getFirstName(), u.getLastName()));
+            }
+        } else {
+            for (User u : userRepository.getAllByEmailAndFirstNameAndLastName(search)) {
+                userDtoList.add(new UserDto(u.getId(), u.getEmail(), u.getFirstName(), u.getLastName()));
+            }
         }
+
+        return userDtoList;
     }
 
     @Override
