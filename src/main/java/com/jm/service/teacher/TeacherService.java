@@ -1,4 +1,4 @@
-package com.jm.service;
+package com.jm.service.teacher;
 
 import com.jm.dto.TeacherUserDto;
 import com.jm.dto.UserDto;
