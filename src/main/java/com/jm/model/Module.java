@@ -1,5 +1,7 @@
 package com.jm.model;
 
+import com.jm.dto.ModuleDto;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -27,6 +29,13 @@ public class Module {
 
     public Module() {
 
+    }
+
+    public Module(ModuleDto moduleDto) {
+        id = moduleDto.getModuleId();
+        name = moduleDto.getName();
+        description = moduleDto.getDescription();
+        position = moduleDto.getPosition();
     }
 
     public Long getId() {

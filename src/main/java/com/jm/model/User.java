@@ -1,14 +1,17 @@
 package com.jm.model;
 
+import com.jm.dto.UserDto;
+
 import javax.management.relation.Role;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
-    @Column(name = "id_user")
+    @GeneratedValue
     private Long id;
 
     private String email;
@@ -23,6 +26,13 @@ public class User {
 
     public User() {
 
+    }
+
+    public User(UserDto userDto) {
+        this.id = userDto.getUserId();
+        this.email = userDto.getEmail();
+        this.firstName = userDto.getFirstName();
+        this.password = userDto.getLastName();
     }
 
     public Long getId() {

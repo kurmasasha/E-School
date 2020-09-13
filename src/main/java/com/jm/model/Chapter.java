@@ -1,5 +1,7 @@
 package com.jm.model;
 
+import com.jm.dto.ChapterDto;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +20,12 @@ public class Chapter {
 
     public Chapter() {
 
+    }
+
+    public Chapter(ChapterDto chapterDto) {
+        this.id = chapterDto.getChapterId();
+        this.name = chapterDto.getName();
+        this.position = chapterDto.getPosition();
     }
 
     public Long getId() {
