@@ -2,11 +2,9 @@ package com.jm.rest.admin.student;
 
 
 import com.jm.dto.*;
-import com.jm.service.StudentService;
-import org.springframework.http.HttpStatus;
+import com.jm.service.student.StudentService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,62 +19,67 @@ public class StudentRestController {
         this.studentService = studentService;
     }
 
+    //Search Student
     @GetMapping
-    public ResponseDto<StudentUserDto> getStudentBySearch(@RequestParam Integer page,
-                                                          @RequestParam String search) {
+    public ResponseDto<?> getStudentBySearch(@RequestParam Integer page,
+                                             @RequestParam String search) {
         List<StudentUserDto> students = studentService.getStudentBySearch(search);
-        List<FieldError> errors = new ArrayList<>();
         PageDto<StudentUserDto> pageDto = new PageDto<>(students.size(), page, 0, 0, students);
-        return new ResponseDto<>(HttpStatus.OK.value(), true, "Success", errors, pageDto);
+        return ResponseDto.ok(pageDto);
     }
 
+    //Create and Save new Student
+    @PostMapping
+    public ResponseDto<?> saveNewStudent(@RequestBody UserDto newStudent) {
+        studentService.saveNewStudent(newStudent);
+        return ResponseDto.ok(newStudent);
+    }
+
+    //Get Student By ID
     @GetMapping("/{studentId}")
-    public StudentUserDto getStudentById(@PathVariable Long studentId) {
-        return studentService.getStudentById(studentId);
+    public UserDto getStudentById(@PathVariable Long studentId) {
+        return studentService.getStudentByIdDto(studentId);
     }
 
+    //Update Student data by id and new data
     @PutMapping("/{studentId}")
-    public ResponseDto<StudentUserDto> updateStudent(@RequestBody UserDto updatedStudent, @PathVariable Long studentId) {
-        List<FieldError> errors = new ArrayList<>();
+    public ResponseDto<?> updateStudent(@RequestBody UserDto updatedStudent, @PathVariable Long studentId) {
         PageDto<StudentUserDto> pageDto;
 
         if (studentService.updateStudent(updatedStudent, studentId)) {
             List<StudentUserDto> students = Collections.singletonList(studentService.getStudentById(studentId));
             pageDto = new PageDto<>(students.size(), 0, 0, 0, students);
-            return new ResponseDto<>(HttpStatus.OK.value(), true, "Success", errors, pageDto);
+            return ResponseDto.ok(pageDto);
         } else {
-            pageDto = new PageDto<>(0, 0, 0, 0, Collections.emptyList());
-            return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), false, "Error", errors, pageDto);
+            return ResponseDto.error().build();
         }
     }
 
+    //Activate Student by Student ID
     @PatchMapping("/{studentId}/activate")
-    public ResponseDto<StudentUserDto> activateStudent(@PathVariable long studentId) {
-        List<FieldError> errors = new ArrayList<>();
+    public ResponseDto<?> activateStudent(@PathVariable long studentId) {
         PageDto<StudentUserDto> pageDto;
 
         if (studentService.activateStudentById(studentId)) {
             List<StudentUserDto> students = Collections.singletonList(studentService.getStudentById(studentId));
             pageDto = new PageDto<>(students.size(), 0, 0, 0, students);
-            return new ResponseDto<>(HttpStatus.OK.value(), true, "Success", errors, pageDto);
+            return ResponseDto.ok(pageDto);
         } else {
-            pageDto = new PageDto<>(0, 0, 0, 0, Collections.emptyList());
-            return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), false, "Error", errors, pageDto);
+            return ResponseDto.error().build();
         }
     }
 
+    //Deactivate Student by Student ID
     @PatchMapping("/{studentId}/deactivate")
-    public ResponseDto<StudentUserDto> deactivateStudent(@PathVariable long studentId) {
-        List<FieldError> errors = new ArrayList<>();
+    public ResponseDto<?> deactivateStudent(@PathVariable long studentId) {
         PageDto<StudentUserDto> pageDto;
 
         if (studentService.deactivateStudentById(studentId)) {
             List<StudentUserDto> students = Collections.singletonList(studentService.getStudentById(studentId));
             pageDto = new PageDto<>(students.size(), 0, 0, 0, students);
-            return new ResponseDto<>(HttpStatus.OK.value(), true, "Success", errors, pageDto);
+            return ResponseDto.ok(pageDto);
         } else {
-            pageDto = new PageDto<>(0, 0, 0, 0, Collections.emptyList());
-            return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), false, "Error", errors, pageDto);
+            return ResponseDto.error().build();
         }
     }
 }

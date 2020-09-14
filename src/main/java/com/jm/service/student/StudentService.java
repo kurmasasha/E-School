@@ -1,4 +1,4 @@
-package com.jm.service;
+package com.jm.service.student;
 
 import com.jm.dto.StudentUserDto;
 import com.jm.dto.UserDto;
@@ -15,4 +15,8 @@ public interface StudentService {
     List<StudentUserDto> getStudentBySearch(String search);
 
     StudentUserDto getStudentById(Long studentId);
+
+    boolean saveNewStudent(UserDto newStudentDto);
+
+    UserDto getStudentByIdDto(Long teacherId);
 }

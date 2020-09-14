@@ -1,19 +1,31 @@
 package com.jm.repository;
 
+
 import com.jm.dto.StudentUserDto;
 import com.jm.model.Student;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Repository
-public interface StudentRepository extends JpaRepository<StudentUserDto, Long> {
+public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    List<StudentUserDto> findAll();
+    @Query("SELECT new com.jm.dto.StudentUserDto(u.id, u.email, u.firstName, u.lastName) FROM User u " +
+            " WHERE TYPE(u) = Student")
+    List<StudentUserDto> getAllStudents();
 
-    List<StudentUserDto> findAllBysearch(String search);
+    @Query("SELECT new com.jm.dto.StudentUserDto(u.id, u.email, u.firstName, u.lastName) FROM User u " +
+            " WHERE CONCAT(u.firstName, u.lastName) LIKE %?1% AND TYPE(u) = Student")
+    List<StudentUserDto> getAllBySearch(String search);
 
-    StudentUserDto getStudentUserDtoByStudentId(Long studentId);
+    @Query("SELECT new com.jm.dto.StudentUserDto(u.id, u.email, u.firstName, u.lastName) FROM User u " +
+            " WHERE u.id = :id AND TYPE(u) = Student")
+    StudentUserDto getStudentUserDtoByStudentId(@Param("id") Long studentId);
+
+
 }

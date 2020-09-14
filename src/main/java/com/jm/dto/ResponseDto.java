@@ -58,12 +58,13 @@ public class ResponseDto<T> {
         return new ResponseBuilder<>(200, true);
     }
 
-    public static <T> ResponseBuilder<T> ok(T object){
-        return new ResponseBuilder<>(object);
+    public static <T> ResponseDto<T> ok(T object){
+
+        return new ResponseBuilder<T>(object).build();
     }
 
 
-    private static class ResponseBuilder<T>{
+    public static class ResponseBuilder<T>{
 
         private final ResponseDto<T> build = new ResponseDto<>();
 
@@ -88,11 +89,10 @@ public class ResponseDto<T> {
             return this;
         }
 
-        public ResponseDto<?> build(){
+        public ResponseDto<T> build(){
             return build;
         }
 
     }
-
 
 }
