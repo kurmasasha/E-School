@@ -18,4 +18,6 @@ public interface TeacherService {
     UserDto getTeacherById(Long teacherId);
 
     TeacherUserDto getTeacherUserDtoByTeacherId(Long teacherId);
+
+    boolean saveNewTeacher(UserDto newTeacher);
 }

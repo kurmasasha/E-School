@@ -5,10 +5,10 @@ import com.jm.dto.ResponseDto;
 import com.jm.dto.TeacherUserDto;
 import com.jm.dto.UserDto;
 import com.jm.service.teacher.TeacherService;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -29,58 +28,62 @@ public class TeacherRestController {
         this.service = service;
     }
 
+    // GET method for retrieving teachers by search key. If empty, return all the teachers.
     @GetMapping
-    public ResponseDto<PageDto<TeacherUserDto>> getTeachersBySearch(@RequestParam Integer page,
-                                                          @RequestParam String search) {
+    public ResponseDto<?> getTeachersBySearch(@RequestParam Integer page,
+                                              @RequestParam String search) {
         List<TeacherUserDto> teachers = service.getTeachersBySearch(search);
         PageDto<TeacherUserDto> pageDto = new PageDto<>(teachers.size(), page, 0, 0, teachers);
-        return new ResponseDto<>(HttpStatus.OK.value(), true, "Some text", pageDto);
+        return ResponseDto.ok(pageDto);
     }
 
+    // GET method for retrieving a single teacher by its id.
     @GetMapping("/{teacherId}")
     public UserDto getTeacherById(@PathVariable Long teacherId) {
         return service.getTeacherById(teacherId);
     }
 
-    @PutMapping("/{teacherId}")
-    public ResponseDto<PageDto<TeacherUserDto>> updateTeacherInfo(@RequestBody UserDto editedTeacherInfo, @PathVariable Long teacherId) {
-        PageDto<TeacherUserDto> pageDto;
+    // POST method for adding a new teacher.
+    @PostMapping
+    public ResponseDto<?> saveNewTeacher(@RequestBody UserDto newTeacher) {
+        service.saveNewTeacher(newTeacher);
+        return ResponseDto.ok(newTeacher);
+    }
 
+    // PUT method for updating a teacher record.
+    @PutMapping("/{teacherId}")
+    public ResponseDto<?> updateTeacherInfo(@RequestBody UserDto editedTeacherInfo, @PathVariable Long teacherId) {
         if (service.updateTeacherInfo(editedTeacherInfo, teacherId)) {
             List<TeacherUserDto> teachers = Arrays.asList(service.getTeacherUserDtoByTeacherId(teacherId));
-            pageDto = new PageDto<>(teachers.size(), 0, 0, 0, teachers);
-            return new ResponseDto<>(HttpStatus.OK.value(), true, "Some text", pageDto);
+            PageDto<TeacherUserDto> pageDto = new PageDto<>(teachers.size(), 0, 0, 0, teachers);
+            return ResponseDto.ok(pageDto);
         } else {
-            pageDto = new PageDto<>(0, 0, 0, 0, Collections.emptyList());
-            return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), false, "Some text", pageDto);
+            return ResponseDto.error().build();
         }
     }
 
+    // PATCH method for deactivating a teacher.
     @PatchMapping("/{teacherId}/deactivate")
-    public ResponseDto<PageDto<TeacherUserDto>> deactivateTeacher(@PathVariable Long teacherId) {
-        PageDto<TeacherUserDto> pageDto;
-
+    public ResponseDto<?> deactivateTeacher(@PathVariable Long teacherId) {
         if (service.deactivateTeacherById(teacherId)) {
             List<TeacherUserDto> teachers = Arrays.asList(service.getTeacherUserDtoByTeacherId(teacherId));
-            pageDto = new PageDto<>(teachers.size(), 0, 0, 0, teachers);
-            return new ResponseDto<>(HttpStatus.OK.value(), true, "Some text", pageDto);
+            PageDto<TeacherUserDto> pageDto = new PageDto<>(teachers.size(), 0, 0, 0, teachers);
+            return ResponseDto.ok(pageDto);
         } else {
-            pageDto = new PageDto<>(0, 0, 0, 0, Collections.emptyList());
-            return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), false, "Some text", pageDto);
+            return ResponseDto.error().build();
         }
     }
 
-    @PatchMapping("/{teacherId}/activate")
-    public ResponseDto<PageDto<TeacherUserDto>> activateTeacher(@PathVariable Long teacherId) {
-        PageDto<TeacherUserDto> pageDto;
 
+    // PATCH method for activating a teacher record.
+    @PatchMapping("/{teacherId}/activate")
+    public ResponseDto<?> activateTeacher(@PathVariable Long teacherId) {
         if (service.activateTeacherById(teacherId)) {
             List<TeacherUserDto> teachers = Arrays.asList(service.getTeacherUserDtoByTeacherId(teacherId));
-            pageDto = new PageDto<>(teachers.size(), 0, 0, 0, teachers);
-            return new ResponseDto<>(HttpStatus.OK.value(), true, "Some text", pageDto);
+            PageDto<TeacherUserDto> pageDto = new PageDto<>(teachers.size(), 0, 0, 0, teachers);
+            return ResponseDto.ok(pageDto);
         } else {
-            pageDto = new PageDto<>(0, 0, 0, 0, Collections.emptyList());
-            return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), false, "Some text", pageDto);
+            return ResponseDto.error().build();
         }
     }
 }

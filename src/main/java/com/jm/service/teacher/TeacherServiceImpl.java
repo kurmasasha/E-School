@@ -3,13 +3,11 @@ package com.jm.service.teacher;
 import com.jm.dto.TeacherUserDto;
 import com.jm.dto.UserDto;
 import com.jm.model.Teacher;
-import com.jm.model.User;
 import com.jm.repository.TeacherRepository;
 import com.jm.service.user.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
@@ -22,6 +20,7 @@ public class TeacherServiceImpl implements TeacherService {
         this.userService = userService;
     }
 
+    // update method
     @Override
     public boolean updateTeacherInfo(UserDto editedTeacherInfo, Long teacherId) {
         Teacher teacher = repository.getOne(teacherId);
@@ -35,6 +34,7 @@ public class TeacherServiceImpl implements TeacherService {
         return false;
     }
 
+    // deactivation method
     @Override
     public boolean deactivateTeacherById(Long teacherId) {
         Teacher teacher = repository.getOne(teacherId);
@@ -46,6 +46,7 @@ public class TeacherServiceImpl implements TeacherService {
         return false;
     }
 
+    // activation method
     @Override
     public boolean activateTeacherById(Long teacherId) {
         Teacher teacher = repository.getOne(teacherId);
@@ -57,6 +58,7 @@ public class TeacherServiceImpl implements TeacherService {
         return false;
     }
 
+    // search method
     @Override
     public List<TeacherUserDto> getTeachersBySearch(String search) {
         if (search.isEmpty()) {
@@ -66,6 +68,7 @@ public class TeacherServiceImpl implements TeacherService {
         }
     }
 
+    // get-by-id method
     @Override
     public UserDto getTeacherById(Long teacherId) {
         TeacherUserDto teacherUserDto = repository.getTeacherUserDtoByTeacherId(teacherId);
@@ -73,8 +76,22 @@ public class TeacherServiceImpl implements TeacherService {
                 teacherUserDto.getFirstName(), teacherUserDto.getLastName());
     }
 
+    // get teacher dto by id method
     @Override
     public TeacherUserDto getTeacherUserDtoByTeacherId(Long teacherId) {
         return repository.getTeacherUserDtoByTeacherId(teacherId);
+    }
+
+    // adding method
+    @Override
+    public boolean saveNewTeacher(UserDto newTeacher) {
+        Teacher teacher = new Teacher();
+        teacher.setId(newTeacher.getUserId());
+        teacher.setFirstName(newTeacher.getFirstName());
+        teacher.setLastName(newTeacher.getLastName());
+        teacher.setEmail(newTeacher.getEmail());
+        teacher.setEnabled(true);
+        repository.save(teacher);
+        return true;
     }
 }

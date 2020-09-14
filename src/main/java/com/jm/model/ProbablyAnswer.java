@@ -3,14 +3,17 @@ package com.jm.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "probablyAnswer")
+@Table(name = "probably_answer")
 public class ProbablyAnswer {
 
     @Id
-    @Column(name = "id_probably_answer")
+    @GeneratedValue
     private Long id;
 
+    @Column
     private String text;
+
+    @Column(name = "is_right")
     private Boolean right;
 
     @ManyToOne(fetch = FetchType.LAZY)
