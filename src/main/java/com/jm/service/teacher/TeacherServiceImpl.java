@@ -2,6 +2,7 @@ package com.jm.service.teacher;
 
 import com.jm.dto.TeacherUserDto;
 import com.jm.dto.UserDto;
+import com.jm.dto.UserPostDto;
 import com.jm.model.Teacher;
 import com.jm.repository.TeacherRepository;
 import com.jm.service.user.UserService;
@@ -84,9 +85,8 @@ public class TeacherServiceImpl implements TeacherService {
 
     // adding method
     @Override
-    public boolean saveNewTeacher(UserDto newTeacher) {
+    public boolean saveNewTeacher(UserPostDto newTeacher) {
         Teacher teacher = new Teacher();
-        teacher.setId(newTeacher.getUserId());
         teacher.setFirstName(newTeacher.getFirstName());
         teacher.setLastName(newTeacher.getLastName());
         teacher.setEmail(newTeacher.getEmail());

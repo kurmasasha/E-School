@@ -4,6 +4,7 @@ import com.jm.dto.PageDto;
 import com.jm.dto.ResponseDto;
 import com.jm.dto.TeacherUserDto;
 import com.jm.dto.UserDto;
+import com.jm.dto.UserPostDto;
 import com.jm.service.teacher.TeacherService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -45,7 +46,7 @@ public class TeacherRestController {
 
     // POST method for adding a new teacher.
     @PostMapping
-    public ResponseDto<?> saveNewTeacher(@RequestBody UserDto newTeacher) {
+    public ResponseDto<?> saveNewTeacher(@RequestBody UserPostDto newTeacher) {
         service.saveNewTeacher(newTeacher);
         return ResponseDto.ok(newTeacher);
     }

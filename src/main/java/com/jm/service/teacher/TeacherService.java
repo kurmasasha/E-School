@@ -2,6 +2,7 @@ package com.jm.service.teacher;
 
 import com.jm.dto.TeacherUserDto;
 import com.jm.dto.UserDto;
+import com.jm.dto.UserPostDto;
 
 import java.util.List;
 
@@ -19,5 +20,5 @@ public interface TeacherService {
 
     TeacherUserDto getTeacherUserDtoByTeacherId(Long teacherId);
 
-    boolean saveNewTeacher(UserDto newTeacher);
+    boolean saveNewTeacher(UserPostDto newTeacher);
 }
