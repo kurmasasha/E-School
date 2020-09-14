@@ -62,8 +62,8 @@ public class ResponseDto<T> {
         return new ResponseBuilder<>(object);
     }
 
-
-    private static class ResponseBuilder<T>{
+// почему класс private?
+    public static class ResponseBuilder<T>{
 
         private final ResponseDto<T> build = new ResponseDto<>();
 

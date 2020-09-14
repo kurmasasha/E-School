@@ -14,18 +14,18 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT new com.jm.dto.UserDto(u.id, u.email, u.firstName, u.lastName) FROM User u WHERE u.id=:userId")
-    UserDto getUserDtoById(Long userId);
+    UserDto getUserById(Long userId);
 
-    List<User> getAllByEmailAndFirstNameAndLastName(String search);
+    @Query("SELECT new com.jm.dto.UserDto(u.id, u.email, u.firstName, u.lastName) FROM User u WHERE CONCAT(u.firstName, u.lastName) LIKE %?1")
+    List<UserDto> getAllBySearch(String search);
 
-    // List<UserDto> getAllUserDto();
-    List<User> getAllUser();
-
-    // Куда добавлять UserPostDto? (email, firstName, lastName)
-    void saveUserPost(UserPostDto userPostDto);
+    @Query("SELECT new com.jm.dto.UserDto(u.id, u.email, u.firstName, u.lastName) FROM User u")
+    List<UserDto> getAllUsers();
 
     void deleteById(@Nullable Long userId);
 
     // Новый метод
     boolean existsUserByEmail(String email);
+
+    // void saveUserPost(UserPostDto userPostDto);
 }

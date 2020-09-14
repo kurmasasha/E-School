@@ -3,15 +3,11 @@ package com.jm.rest.admin.admin;
 import com.jm.dto.PageDto;
 import com.jm.dto.ResponseDto;
 import com.jm.dto.UserDto;
-import com.jm.dto.UserPostDto;
-import com.jm.service.UserService;
-import org.apache.catalina.connector.Response;
-import org.springframework.http.HttpStatus;
+import com.jm.service.user.UserService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,12 +28,12 @@ public class AdminRestController {
     }
 
     @GetMapping
-    public ResponseDto<?> getUserDto(@RequestParam Integer page,
-                                     @RequestParam String search) {
-        List<UserDto> users = userService.getAllUserDto(search);
+    public ResponseDto<?> getUsersBySearch(@RequestParam Integer page,
+                                           @RequestParam String search) {
+        List<UserDto> users = userService.getUsersBySearch(search);
         PageDto<UserDto> pageDto = new PageDto<>(users.size(), page, 0, 0, users);
 
-        return new ResponseDto<>(Response.SC_OK, true, "OK", pageDto);
+        return ResponseDto.ok(pageDto).build();
     }
 
     @GetMapping("{userId}")
@@ -45,30 +41,26 @@ public class AdminRestController {
         return userService.getUserDtoById(userId);
     }
 
-    @PostMapping
-    public ResponseDto<?> createUserPostDto(@RequestBody UserPostDto userPostDto) {
-        PageDto<UserPostDto> pageDto = new PageDto<>(0, 0, 0, 0, Collections.emptyList());
-
-        if (userService.addUserPostDto(userPostDto)) {
-            return new ResponseDto<>(HttpStatus.OK.value(), true, "OK", pageDto);
-        } else {
-            return new ResponseDto<>(HttpStatus.OK.value(), true, "Bad", pageDto);
-        }
-    }
+//    @PostMapping
+//    public ResponseDto<?> createUserPostDto(@RequestBody UserPostDto userPostDto) {
+//        PageDto<UserPostDto> pageDto = new PageDto<>(0, 0, 0, 0, Collections.emptyList());
+//
+//        if (userService.addUserPostDto(userPostDto)) {
+//            return new ResponseDto<>(HttpStatus.OK.value(), true, "OK", pageDto);
+//        } else {
+//            return new ResponseDto<>(HttpStatus.OK.value(), true, "Bad", pageDto);
+//        }
+//    }
 
     @PutMapping("{userId}")
     public ResponseDto<?> updateUserDto(@RequestBody UserDto userDto, @PathVariable Long userId) {
-        PageDto<UserDto> pageDto;
-
         if (userService.updateUserDto(userDto, userId)) {
             List<UserDto> users = Collections.singletonList(userService.getUserDtoById(userId));
-            pageDto = new PageDto<>(users.size(), 0, 0, 0, users);
+            PageDto<UserDto> pageDto = new PageDto<>(users.size(), 0, 0, 0, users);
 
-            return new ResponseDto<>(HttpStatus.OK.value(), true, "OK", pageDto);
+            return ResponseDto.ok(pageDto).build();
         } else {
-            pageDto = new PageDto<>(0, 0, 0, 0, Collections.emptyList());
-
-            return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), false, "Bad", pageDto);
+            return ResponseDto.error().build();
         }
     }
 
@@ -77,9 +69,9 @@ public class AdminRestController {
         PageDto<UserDto> pageDto = new PageDto<>(0, 0, 0, 0, Collections.emptyList());
 
         if (userService.deleteUserDtoById(userId)) {
-            return new ResponseDto<>(HttpStatus.OK.value(), true, "OK", pageDto);
+            return ResponseDto.ok(pageDto).build();
         } else {
-            return new ResponseDto<>(HttpStatus.OK.value(), true, "Bad", pageDto);
+            return ResponseDto.error().build();
         }
     }
 }
