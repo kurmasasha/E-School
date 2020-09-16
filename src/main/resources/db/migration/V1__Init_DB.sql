@@ -1,9 +1,9 @@
-create sequence hibernate_sequence start 1 increment 1;
+-- create sequence hibernate_sequence start 1 increment 1;
 
 -- CREATING TABLES --
 
 create table chapter (
-    id_chapter int8 not null,
+    id_chapter bigserial not null,
     name varchar(255),
     position int4,
     id_module int8,
@@ -11,7 +11,7 @@ create table chapter (
 );
 
 create table course (
-    id_course int8 not null,
+    id_course bigserial not null,
     about_teacher_info varchar(255),
     creating_time timestamp,
     html_body varchar(255),
@@ -22,7 +22,7 @@ create table course (
 );
 
 create table course_info (
-    id int8 not null,
+    id bigserial not null,
     about varchar(255),
     description varchar(255),
     id_course int8,
@@ -31,7 +31,7 @@ create table course_info (
 );
 
 create table course_task (
-    id_course_task int8 not null,
+    id_course_task bigserial not null,
     position int4,
     id_chapter int8,
     id_task int8,
@@ -39,19 +39,19 @@ create table course_task (
 );
 
 create table custom_answer (
-    id_custom_answer int8 not null,
+    id_custom_answer bigserial not null,
     text varchar(255),
     primary key (id_custom_answer)
 );
 
 create table direction (
-    id_direction int8 not null,
+    id_direction bigserial not null,
     name varchar(255),
     primary key (id_direction)
 );
 
 create table module (
-    id_module int8 not null,
+    id_module bigserial not null,
     description varchar(255),
     is_open boolean,
     name varchar(255),
@@ -62,7 +62,7 @@ create table module (
 );
 
 create table ordering_task_answer_item (
-    id_ordering_task_answer_item int8 not null,
+    id_ordering_task_answer_item bigserial not null,
     position int4, id_ordering_task_item int8,
     id_probably_answer int8,
     student_course_task_answer_id int8,
@@ -70,7 +70,7 @@ create table ordering_task_answer_item (
 );
 
 create table ordering_task_item (
-    id_ordering_task_item int8 not null,
+    id_ordering_task_item bigserial not null,
     item_text varchar(255),
     position int4,
     id_task int8,
@@ -78,7 +78,7 @@ create table ordering_task_item (
 );
 
 create table probably_answer (
-    id int8 not null,
+    id bigserial not null,
     is_right boolean,
     text varchar(255),
     id_task int8,
@@ -86,7 +86,7 @@ create table probably_answer (
 );
 
 create table student_course_info (
-    id_student_course_info int8 not null,
+    id_student_course_info bigserial not null,
     adding_date timestamp,
     is_completed boolean,
     id_course int8,
@@ -100,7 +100,7 @@ create table student_course_info_student_course_tasks (
 );
 
 create table student_course_task (
-    id_student_course_task int8 not null,
+    id_student_course_task bigserial not null,
     is_reset boolean,
     is_right boolean,
     is_solved boolean,
@@ -116,7 +116,7 @@ create table student_course_task_student_course_task_answers (
 );
 
 create table student_course_task_answer (
-    id int8 not null,
+    id bigserial not null,
     answer varchar(255),
     date timestamp,
     is_right boolean,
@@ -132,7 +132,7 @@ create table student_course_task_answer_student_course_task_answers (
 );
 
 create table student_group (
-    id_student_group int8 not null,
+    id_student_group bigserial not null,
     name varchar(255),
     id_course int8,
     id_user int8,
@@ -141,7 +141,7 @@ create table student_group (
 
 create table task (
     dtype varchar(31) not null,
-    id_task int8 not null,
+    id_task bigserial not null,
     description varchar(255),
     is_available boolean,
     points int4,
@@ -163,7 +163,7 @@ create table task_task_items (
 
 create table users (
     dtype varchar(31) not null,
-    id int8 not null,
+    id bigserial not null,
     email varchar(255),
     enabled boolean,
     first_name varchar(255),

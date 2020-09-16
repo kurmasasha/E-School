@@ -21,7 +21,12 @@ public class TeacherServiceImpl implements TeacherService {
         this.userService = userService;
     }
 
-    // update method
+    /**
+     * Метод апдейта для записи преподавателя.
+     * @param editedTeacherInfo
+     * @param teacherId
+     * @return
+     */
     @Override
     public boolean updateTeacherInfo(UserDto editedTeacherInfo, Long teacherId) {
         Teacher teacher = repository.getOne(teacherId);
@@ -35,7 +40,11 @@ public class TeacherServiceImpl implements TeacherService {
         return false;
     }
 
-    // deactivation method
+    /**
+     * Метод деактивации записи пользователя.
+     * @param teacherId
+     * @return
+     */
     @Override
     public boolean deactivateTeacherById(Long teacherId) {
         Teacher teacher = repository.getOne(teacherId);
@@ -47,7 +56,11 @@ public class TeacherServiceImpl implements TeacherService {
         return false;
     }
 
-    // activation method
+    /**
+     * Метод активации записи пользователя.
+     * @param teacherId
+     * @return
+     */
     @Override
     public boolean activateTeacherById(Long teacherId) {
         Teacher teacher = repository.getOne(teacherId);
@@ -59,7 +72,11 @@ public class TeacherServiceImpl implements TeacherService {
         return false;
     }
 
-    // search method
+    /**
+     * Метод поиска.
+     * @param search
+     * @return
+     */
     @Override
     public List<TeacherUserDto> getTeachersBySearch(String search) {
         if (search.isEmpty()) {
@@ -69,7 +86,11 @@ public class TeacherServiceImpl implements TeacherService {
         }
     }
 
-    // get-by-id method
+    /**
+     * Метод получения преподавателя по его id.
+     * @param teacherId
+     * @return
+     */
     @Override
     public UserDto getTeacherById(Long teacherId) {
         TeacherUserDto teacherUserDto = repository.getTeacherUserDtoByTeacherId(teacherId);
@@ -77,13 +98,21 @@ public class TeacherServiceImpl implements TeacherService {
                 teacherUserDto.getFirstName(), teacherUserDto.getLastName());
     }
 
-    // get teacher dto by id method
+    /**
+     * Метод получения TeacherUserDto по id преподавателя.
+     * @param teacherId
+     * @return
+     */
     @Override
     public TeacherUserDto getTeacherUserDtoByTeacherId(Long teacherId) {
         return repository.getTeacherUserDtoByTeacherId(teacherId);
     }
 
-    // adding method
+    /**
+     * Метод добавления преподавателя в бд.
+     * @param newTeacher
+     * @return
+     */
     @Override
     public boolean saveNewTeacher(UserPostDto newTeacher) {
         Teacher teacher = new Teacher();

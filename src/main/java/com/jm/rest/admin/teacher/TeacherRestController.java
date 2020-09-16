@@ -29,7 +29,13 @@ public class TeacherRestController {
         this.service = service;
     }
 
-    // GET method for retrieving teachers by search key. If empty, return all the teachers.
+    /**
+     * GET метод, возвращающий список преподавателей по ключу поиска. Если запрос пустой,
+     * то возвращаются все преподаватели.
+     * @param page
+     * @param search
+     * @return
+     */
     @GetMapping
     public ResponseDto<?> getTeachersBySearch(@RequestParam Integer page,
                                               @RequestParam String search) {
@@ -38,20 +44,33 @@ public class TeacherRestController {
         return ResponseDto.ok(pageDto);
     }
 
-    // GET method for retrieving a single teacher by its id.
+    /**
+     * GET метод, возвращающий одного преподавателя по его id.
+     * @param teacherId
+     * @return
+     */
     @GetMapping("/{teacherId}")
     public UserDto getTeacherById(@PathVariable Long teacherId) {
         return service.getTeacherById(teacherId);
     }
 
-    // POST method for adding a new teacher.
+    /**
+     * POST метод, добавляющий преподавателя в базу.
+     * @param newTeacher
+     * @return
+     */
     @PostMapping
     public ResponseDto<?> saveNewTeacher(@RequestBody UserPostDto newTeacher) {
         service.saveNewTeacher(newTeacher);
         return ResponseDto.ok(newTeacher);
     }
 
-    // PUT method for updating a teacher record.
+    /**
+     * PUT метод, обновляющий запись преподавателя.
+     * @param editedTeacherInfo
+     * @param teacherId
+     * @return
+     */
     @PutMapping("/{teacherId}")
     public ResponseDto<?> updateTeacherInfo(@RequestBody UserDto editedTeacherInfo, @PathVariable Long teacherId) {
         if (service.updateTeacherInfo(editedTeacherInfo, teacherId)) {
@@ -63,7 +82,11 @@ public class TeacherRestController {
         }
     }
 
-    // PATCH method for deactivating a teacher.
+    /**
+     * PATCH метод, деактивирующий запись преподавателя.
+     * @param teacherId
+     * @return
+     */
     @PatchMapping("/{teacherId}/deactivate")
     public ResponseDto<?> deactivateTeacher(@PathVariable Long teacherId) {
         if (service.deactivateTeacherById(teacherId)) {
@@ -75,8 +98,11 @@ public class TeacherRestController {
         }
     }
 
-
-    // PATCH method for activating a teacher record.
+    /**
+     * PATCH метод, активирующий запись преподавателя.
+     * @param teacherId
+     * @return
+     */
     @PatchMapping("/{teacherId}/activate")
     public ResponseDto<?> activateTeacher(@PathVariable Long teacherId) {
         if (service.activateTeacherById(teacherId)) {
