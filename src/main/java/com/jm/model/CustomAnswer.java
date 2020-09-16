@@ -1,6 +1,5 @@
 package com.jm.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,7 +7,6 @@ import javax.persistence.Id;
 public class CustomAnswer {
 
     @Id
-    @Column(name = "id_custom_answer")
     private Long id;
 
     private String text;

@@ -1,11 +1,7 @@
 package com.jm.model;
 
-import com.jm.dto.OrderingTaskDto;
-import com.jm.dto.OrderingTaskItemDto;
-
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity

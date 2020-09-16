@@ -1,117 +1,115 @@
--- create sequence hibernate_sequence start 1 increment 1;
-
--- CREATING TABLES --
+--- CREATING TABLES ---
 
 create table chapter (
-    id_chapter bigserial not null,
+    id bigserial not null,
     name varchar(255),
     position int4,
-    id_module int8,
-    primary key (id_chapter)
+    module_id int8,
+    primary key (id)
 );
-
 create table course (
-    id_course bigserial not null,
+    id bigserial not null,
     about_teacher_info varchar(255),
     creating_time timestamp,
     html_body varchar(255),
     is_available boolean,
     name varchar(255),
-    id_direction int8,
-    primary key (id_course)
+    direction_id int8,
+    primary key (id)
 );
 
 create table course_info (
     id bigserial not null,
     about varchar(255),
     description varchar(255),
-    id_course int8,
-    id_teacher int8,
+    course_id int8,
+    teacher_id int8,
     primary key (id)
 );
 
 create table course_task (
-    id_course_task bigserial not null,
+    id bigserial not null,
     position int4,
-    id_chapter int8,
-    id_task int8,
-    primary key (id_course_task)
+    chapter_id int8,
+    task_id int8,
+    primary key (id)
 );
 
 create table custom_answer (
-    id_custom_answer bigserial not null,
+    id bigserial not null,
     text varchar(255),
-    primary key (id_custom_answer)
+    primary key (id)
 );
 
 create table direction (
-    id_direction bigserial not null,
+    id bigserial not null,
     name varchar(255),
-    primary key (id_direction)
+    primary key (id)
 );
 
 create table module (
-    id_module bigserial not null,
+    id bigserial not null,
     description varchar(255),
     is_open boolean,
     name varchar(255),
     open_date date,
     position int4,
-    id_course int8,
-    primary key (id_module)
+    course_id int8,
+    primary key (id)
 );
 
 create table ordering_task_answer_item (
-    id_ordering_task_answer_item bigserial not null,
-    position int4, id_ordering_task_item int8,
-    id_probably_answer int8,
+    id bigserial not null,
+    position int4,
+    ordering_task_item_id int8,
+    probably_answer_id int8,
     student_course_task_answer_id int8,
-    primary key (id_ordering_task_answer_item)
+    primary key (id)
 );
 
 create table ordering_task_item (
-    id_ordering_task_item bigserial not null,
+    id bigserial not null,
     item_text varchar(255),
     position int4,
-    id_task int8,
-    primary key (id_ordering_task_item)
+    ordering_task_id int8,
+    primary key (id)
 );
 
 create table probably_answer (
     id bigserial not null,
     is_right boolean,
     text varchar(255),
-    id_task int8,
+    theory_task_id int8,
     primary key (id)
 );
 
 create table student_course_info (
-    id_student_course_info bigserial not null,
+    id bigserial not null,
     adding_date timestamp,
     is_completed boolean,
-    id_course int8,
-    id_user int8,
-    primary key (id_student_course_info)
+    course_id int8,
+    user_id int8,
+    primary key (id)
 );
 
 create table student_course_info_student_course_tasks (
-    student_course_info_id_student_course_info int8 not null,
-    student_course_tasks_id_student_course_task int8 not null
+    student_course_info_id int8 not null,
+    student_course_tasks_id int8 not null
 );
 
 create table student_course_task (
-    id_student_course_task bigserial not null,
+    id bigserial not null,
     is_reset boolean,
     is_right boolean,
     is_solved boolean,
     is_wrong boolean,
-    id_course_task int8,
-    id_student_course_info int8,
-    primary key (id_student_course_task)
+    course_task_id int8,
+    student_course_info_id int8,
+    primary key (id)
 );
 
 create table student_course_task_student_course_task_answers (
-    student_course_task_id_student_course_task int8 not null,
+    student_course_task_id int8 not null,
     student_course_task_answers_id int8 not null
 );
 
@@ -120,10 +118,9 @@ create table student_course_task_answer (
     answer varchar(255),
     date timestamp,
     is_right boolean,
-    id_custom_answer int8,
-    id_ordering_task_answer_item int8,
-    id_student_course_task int8,
-    primary key (id)
+    custom_answer_id int8,
+    ordering_task_answer_item_id int8,
+    student_course_task_id int8, primary key (id)
 );
 
 create table student_course_task_answer_student_course_task_answers (
@@ -132,33 +129,33 @@ create table student_course_task_answer_student_course_task_answers (
 );
 
 create table student_group (
-    id_student_group bigserial not null,
+    id bigserial not null,
     name varchar(255),
-    id_course int8,
-    id_user int8,
-    primary key (id_student_group)
+    course_id int8,
+    teacher_id int8,
+    primary key (id)
 );
 
 create table task (
     dtype varchar(31) not null,
-    id_task bigserial not null,
+    id bigserial not null,
     description varchar(255),
     is_available boolean,
     points int4,
     title varchar(255),
     type varchar(255),
     answer varchar(255),
-    primary key (id_task)
+    primary key (id)
 );
 
 create table task_probably_answers (
-    theory_task_id_task int8 not null,
+    theory_task_id int8 not null,
     probably_answers_id int8 not null
 );
 
 create table task_task_items (
-    ordering_task_id_task int8 not null,
-    task_items_id_ordering_task_item int8 not null
+    ordering_task_id int8 not null,
+    task_items_id int8 not null
 );
 
 create table users (
@@ -174,11 +171,11 @@ create table users (
     primary key (id)
 );
 
--- ALTERING TABLES --
+--- ALTERING TABLES ---
 
 alter table if exists student_course_info_student_course_tasks
-    add constraint UK_eidkpjqm32m6oidrg5u4dkc09
-    unique (student_course_tasks_id_student_course_task);
+    add constraint UK_5roh373lk3ohs9ol625raod9s
+    unique (student_course_tasks_id);
 
 alter table if exists student_course_task_student_course_task_answers
     add constraint UK_ci1nt8udxvj3qmthtxemspv73
@@ -193,52 +190,52 @@ alter table if exists task_probably_answers
     unique (probably_answers_id);
 
 alter table if exists task_task_items
-    add constraint UK_mkcx79y7gp9i7v4qt2un5xokk
-    unique (task_items_id_ordering_task_item);
+    add constraint UK_5f687b1odg7n9rhlh3i3ehdlq
+    unique (task_items_id);
 
 alter table if exists chapter
-    add constraint FKr3nes27eksnxceue92o2wbkj8
-    foreign key (id_module)
+    add constraint FK64w3jdivg2rkupnm9oxptv5x3
+    foreign key (module_id)
     references module;
 
 alter table if exists course
-    add constraint FKfh9lxmy26qbq5813l68ivwifl
-    foreign key (id_direction)
+    add constraint FKp8ui0dq57cwlujqhir5ekuw7a
+    foreign key (direction_id)
     references direction;
 
 alter table if exists course_info
-    add constraint FKmq9ucx8ves2s0atiniw3ao4p8
-    foreign key (id_course)
+    add constraint FKh8vciy6bmbkpol1d4qsyp6ovk
+    foreign key (course_id)
     references course;
 
 alter table if exists course_info
-    add constraint FKfjbufb026jl1iufm3pvlt8nlp
-    foreign key (id_teacher)
+    add constraint FK919rhxlnkndka8p2rgkdfi8dg
+    foreign key (teacher_id)
     references users;
 
 alter table if exists course_task
-    add constraint FKcaadmbaotx5fpcc7fva1da4i9
-    foreign key (id_chapter)
+    add constraint FK6o0extv2offafg84vj5tyr2pb
+    foreign key (chapter_id)
     references chapter;
 
 alter table if exists course_task
-    add constraint FK9j5ln0g2splvkodo5swnrhau7
-    foreign key (id_task)
+    add constraint FKa9s55il467vox5hichk9uu5r
+    foreign key (task_id)
     references task;
 
 alter table if exists module
-    add constraint FK5yx9t4pivui02sh0fccox2eic
-    foreign key (id_course)
+    add constraint FKfq09oddpwjoxcirvkh9vnfnsg
+    foreign key (course_id)
     references course;
 
 alter table if exists ordering_task_answer_item
-    add constraint FK4rndnsrgxurkvqflp2j64pmjr
-    foreign key (id_ordering_task_item)
+    add constraint FKmucprpjv3vmsjps6cdyw13a3d
+    foreign key (ordering_task_item_id)
     references ordering_task_item;
 
 alter table if exists ordering_task_answer_item
-    add constraint FKem6qqe6ymboujmjnk7p8qqk46
-    foreign key (id_probably_answer)
+    add constraint FK7wwg8gtgrah5pxo86pmlms5ei
+    foreign key (probably_answer_id)
     references probably_answer;
 
 alter table if exists ordering_task_answer_item
@@ -247,43 +244,43 @@ alter table if exists ordering_task_answer_item
     references student_course_task_answer;
 
 alter table if exists ordering_task_item
-    add constraint FKolke0uf4svbusxglal0xcv22t
-    foreign key (id_task)
+    add constraint FK4i9xd7ebb0cmxt7nf1vd6tpa7
+    foreign key (ordering_task_id)
     references task;
 
 alter table if exists probably_answer
-    add constraint FKne8g7xdhuydt8qsgtm2w14nf4
-    foreign key (id_task)
+    add constraint FKbqeokmtan8xvcmtur8cecdsf
+    foreign key (theory_task_id)
     references task;
 
 alter table if exists student_course_info
-    add constraint FKdpkmn4xfldrsioxky91ujxsr
-    foreign key (id_course)
+    add constraint FK34w26vfj0hrcfox75ao2nlbay
+    foreign key (course_id)
     references course;
 
 alter table if exists student_course_info
-    add constraint FK1du0h3fxjpj8h6p84v4muf16p
-    foreign key (id_user)
+    add constraint FK9gnm2xkhuh570p9da8grdf4gk
+    foreign key (user_id)
     references users;
 
 alter table if exists student_course_info_student_course_tasks
-    add constraint FKndtggy4lrbi45irmaonlm1ru4
-    foreign key (student_course_tasks_id_student_course_task)
+    add constraint FKatdgkn8gr5cs59xxqrtro8uwi
+    foreign key (student_course_tasks_id)
     references student_course_task;
 
 alter table if exists student_course_info_student_course_tasks
-    add constraint FK54sray20ov8dytpwg30s11nfr
-    foreign key (student_course_info_id_student_course_info)
+    add constraint FKd2dlvxhhna97ppbncimko87l0
+    foreign key (student_course_info_id)
     references student_course_info;
 
 alter table if exists student_course_task
-    add constraint FK9pxw49rd1vun1ajpg5ctnv62k
-    foreign key (id_course_task)
+    add constraint FKbgl9e4gn5pf63dmcv5l3vweno
+    foreign key (course_task_id)
     references course_task;
 
 alter table if exists student_course_task
-    add constraint FKb1h1vwpcc98ugj558qivq7em3
-    foreign key (id_student_course_info)
+    add constraint FK10ghogdeqv50q9grg5ij3rdm6
+    foreign key (student_course_info_id)
     references student_course_info;
 
 alter table if exists student_course_task_student_course_task_answers
@@ -292,23 +289,23 @@ alter table if exists student_course_task_student_course_task_answers
     references student_course_task_answer;
 
 alter table if exists student_course_task_student_course_task_answers
-    add constraint FKbx3aj0obmres7m8n6mdtcb9fh
-    foreign key (student_course_task_id_student_course_task)
+    add constraint FKadw2gcryj52au83tijjrpsnrq
+    foreign key (student_course_task_id)
     references student_course_task;
 
 alter table if exists student_course_task_answer
-    add constraint FK4sjigcwvt4aelnfy7vajwl4hk
-    foreign key (id_custom_answer)
+    add constraint FK9h0d6xarf2l0uapq9fuk7ntw6
+    foreign key (custom_answer_id)
     references custom_answer;
 
 alter table if exists student_course_task_answer
-    add constraint FKr7o8hvdre3dxqwe47ym9vb2d3
-    foreign key (id_ordering_task_answer_item)
+    add constraint FKh7xaykv03aoke29025880ix3m
+    foreign key (ordering_task_answer_item_id)
     references ordering_task_answer_item;
 
 alter table if exists student_course_task_answer
-    add constraint FKpn86p4qiqiewvje82flpa2tky
-    foreign key (id_student_course_task)
+    add constraint FK60trto6g29unv7il52ksec1nq
+    foreign key (student_course_task_id)
     references student_course_task;
 
 alter table if exists student_course_task_answer_student_course_task_answers
@@ -322,13 +319,13 @@ alter table if exists student_course_task_answer_student_course_task_answers
     references student_course_task_answer;
 
 alter table if exists student_group
-    add constraint FKh6m1evjxouwyymr14nt5t5h0l
-    foreign key (id_course)
+    add constraint FKlx1j4yvkh8u0hsq8k3eblghqo
+    foreign key (course_id)
     references course;
 
 alter table if exists student_group
-    add constraint FKq8twursgg2nmu4r2umsuksp2m
-    foreign key (id_user)
+    add constraint FKmecm6d5as8evnv346o97f7iv1
+    foreign key (teacher_id)
     references users;
 
 alter table if exists task_probably_answers
@@ -337,16 +334,16 @@ alter table if exists task_probably_answers
     references probably_answer;
 
 alter table if exists task_probably_answers
-    add constraint FKsfc3e51g5ox9ux28iq3f8idyw
-    foreign key (theory_task_id_task)
+    add constraint FK8asdvojw6hb5erm1ecrttcxwf
+    foreign key (theory_task_id)
     references task;
 
 alter table if exists task_task_items
-    add constraint FKleor6bwbln61oqpccdhih00ee
-    foreign key (task_items_id_ordering_task_item)
+    add constraint FK2jprc9slqp7h1dvc9codmeddb
+    foreign key (task_items_id)
     references ordering_task_item;
 
 alter table if exists task_task_items
-    add constraint FK6vlwevchjrh93jmoaubuubyal
-    foreign key (ordering_task_id_task)
+    add constraint FKju2fh1802jbrmct0s4pq38d5x
+    foreign key (ordering_task_id)
     references task;

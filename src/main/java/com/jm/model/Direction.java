@@ -2,7 +2,6 @@ package com.jm.model;
 
 import com.jm.dto.DirectionDto;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -10,7 +9,6 @@ import javax.persistence.Id;
 public class Direction {
 
     @Id
-    @Column(name = "id_direction")
     private Long id;
 
     private String name;

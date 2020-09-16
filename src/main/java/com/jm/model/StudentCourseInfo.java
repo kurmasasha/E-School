@@ -1,6 +1,12 @@
 package com.jm.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
 
@@ -9,18 +15,17 @@ import java.util.List;
 public class StudentCourseInfo {
 
     @Id
-    @Column(name = "id_student_course_info")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "user_id")
     private User student;
 
     private Date addingDate;
     private Boolean isCompleted = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_course")
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @OneToMany

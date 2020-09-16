@@ -1,22 +1,25 @@
 package com.jm.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class OrderingTaskAnswerItem {
 
     @Id
-    @Column(name = "id_ordering_task_answer_item")
     private Long id;
 
     private Integer position;
 
     @OneToOne
-    @JoinColumn(name = "id_ordering_task_item")
+    @JoinColumn(name = "ordering_task_item_id")
     private OrderingTaskItem orderingTaskItem;
 
     @OneToOne
-    @JoinColumn(name = "id_probably_answer")
+    @JoinColumn(name = "probably_answer_id")
     private ProbablyAnswer probablyAnswer;
 
     @OneToOne(fetch = FetchType.LAZY)
