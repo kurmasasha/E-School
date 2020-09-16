@@ -2,6 +2,7 @@ package com.jm.service.student;
 
 import com.jm.dto.StudentUserDto;
 import com.jm.dto.UserDto;
+import com.jm.dto.UserPostDto;
 import com.jm.model.Student;
 import com.jm.repository.StudentRepository;
 import com.jm.service.user.UserService;
@@ -22,7 +23,12 @@ public class StudentServiceImpl implements StudentService {
         this.userService = userService;
     }
 
-    //Update Student data by id and new data
+    /**
+     * Метод апдейта для записи студента.
+     * @param updatedStudent
+     * @param studentId
+     * @return boolean
+     */
     @Override
     public boolean updateStudent(UserDto updatedStudent, Long studentId) {
         Student student = studentRepository.getOne(studentId);
@@ -36,7 +42,11 @@ public class StudentServiceImpl implements StudentService {
         return false;
     }
 
-    //Activate Student by Student ID
+    /**
+     * Метод активации записи студента.
+     * @param studentId
+     * @return boolean
+     */
     @Override
     public boolean activateStudentById(Long studentId) {
         Student student = studentRepository.getOne(studentId);
@@ -48,7 +58,11 @@ public class StudentServiceImpl implements StudentService {
         return false;
     }
 
-    //Deactivate Student by Student ID
+    /**
+     * Метод деактивации записи студента.
+     * @param studentId
+     * @return boolean
+     */
     @Override
     public boolean deactivateStudentById(Long studentId) {
         Student student = studentRepository.getOne(studentId);
@@ -60,31 +74,47 @@ public class StudentServiceImpl implements StudentService {
         return false;
     }
 
-    //Search and return Students
+    /**
+     * Метод поиска студента.
+     * @param search
+     * @return List of Students
+     */
     @Override
     public List<StudentUserDto> getStudentBySearch(String search) {
        return search.isEmpty()? studentRepository.getAllStudents() : studentRepository.getAllBySearch(search);
     }
 
-    //Get Student Dto bu Student ID
+    /**
+     * Метод получения студента по его id.
+     * @param studentId
+     * @return StudentUserDto
+     */
     @Override
     public StudentUserDto getStudentById(Long studentId) {
         return studentRepository.getStudentUserDtoByStudentId(studentId);
     }
 
-    //Get Student as User Dto by Stundet ID
+    /**
+     * Метод получения студента по его id.
+     * @param studentId
+     * @return UserDto
+     */
     @Override
-    public UserDto getStudentByIdDto(Long teacherId) {
-        StudentUserDto studentUserDto = studentRepository.getStudentUserDtoByStudentId(teacherId);
+    public UserDto getStudentByIdDto(Long studentId) {
+        StudentUserDto studentUserDto = studentRepository.getStudentUserDtoByStudentId(studentId);
+        if (Objects.isNull(studentUserDto)) return new UserDto(0L,"","","");
         return new UserDto(studentUserDto.getStudentId(), studentUserDto.getEmail(),
                 studentUserDto.getFirstName(), studentUserDto.getLastName());
     }
 
-    //Create new Student and save to DB
+    /**
+     * Метод добавления студента в бд.
+     * @param newStudentDto
+     * @return boolean
+     */
     @Override
-    public boolean saveNewStudent(UserDto newStudentDto) {
+    public boolean saveNewStudent(UserPostDto newStudentDto) {
         Student student = new Student();
-        student.setId(newStudentDto.getUserId());
         student.setEmail(newStudentDto.getEmail());
         student.setFirstName(newStudentDto.getFirstName());
         student.setLastName(newStudentDto.getLastName());

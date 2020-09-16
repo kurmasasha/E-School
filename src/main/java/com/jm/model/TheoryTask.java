@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class TheoryTask extends Task {
 
-    @OneToMany
+    @OneToMany(mappedBy = "theoryTask")
     private List<ProbablyAnswer> probablyAnswers;
 
     public TheoryTask() {
