@@ -25,4 +25,5 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
             "FROM User u " +
             "WHERE u.id = :id AND TYPE(u) = Teacher")
     TeacherUserDto getTeacherUserDtoByTeacherId(@Param("id") Long teacherId);
+
 }
