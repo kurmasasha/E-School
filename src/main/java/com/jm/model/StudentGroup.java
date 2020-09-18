@@ -1,27 +1,27 @@
 package com.jm.model;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class StudentGroup {
 
     @Id
-    @Column(name = "id_student_group")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "id_course")
+    @JoinColumn(name = "course_id")
     private Course course;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "id_course")
-//    private CourseInfo courseInfo;
 
     @ManyToOne
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
     public StudentGroup() {
@@ -59,13 +59,4 @@ public class StudentGroup {
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
-
-//    public CourseInfo getCourseInfo() {
-//        return courseInfo;
-//    }
-//
-//    public void setCourseInfo(CourseInfo courseInfo) {
-//        this.courseInfo = courseInfo;
-//    }
-
 }

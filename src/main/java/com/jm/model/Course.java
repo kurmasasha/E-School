@@ -2,14 +2,20 @@ package com.jm.model;
 
 import com.jm.dto.CourseDto;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Entity
 public class Course {
 
     @Id
-    @Column(name = "id_course")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -19,7 +25,7 @@ public class Course {
     private LocalDateTime creatingTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_direction")
+    @JoinColumn(name = "direction_id")
     private Direction direction;
 
     public Course() {

@@ -1,6 +1,14 @@
 package com.jm.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -8,6 +16,7 @@ import java.util.List;
 public class StudentCourseTaskAnswer {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String answer;
@@ -15,15 +24,15 @@ public class StudentCourseTaskAnswer {
     private Boolean isRight;
 
     @OneToOne
-    @JoinColumn(name = "id_custom_answer")
+    @JoinColumn(name = "custom_answer_id")
     private CustomAnswer customAnswer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_student_course_task")
+    @JoinColumn(name = "student_course_task_id")
     private StudentCourseTask studentCourseTask;
 
     @OneToOne
-    @JoinColumn(name = "id_ordering_task_answer_item")
+    @JoinColumn(name = "ordering_task_answer_item_id")
     private OrderingTaskAnswerItem orderingTaskAnswerItem;
 
     @OneToMany
