@@ -24,7 +24,7 @@ public class ProbablyAnswer {
     private Boolean right;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_task")
+    @JoinColumn(name = "theory_task_id")
     private TheoryTask theoryTask;
 
     public ProbablyAnswer() {

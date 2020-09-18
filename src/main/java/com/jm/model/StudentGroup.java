@@ -1,22 +1,24 @@
 package com.jm.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class StudentGroup {
 
     @Id
-    @Column(name = "id_student_group")
     private Long id;
 
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "id_course")
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @ManyToOne
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
     public StudentGroup() {

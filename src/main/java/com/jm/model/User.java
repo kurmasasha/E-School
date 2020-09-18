@@ -3,7 +3,13 @@ package com.jm.model;
 import com.jm.dto.UserDto;
 
 import javax.management.relation.Role;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,7 +17,8 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
+    @SequenceGenerator(name="users_id_seq", sequenceName="users_id_seq", allocationSize=1)
     private Long id;
 
     private String email;

@@ -2,15 +2,15 @@ package com.jm.dto;
 
 import java.util.List;
 
-public class PageDto<UserDto> {
+public class PageDto<T> {
 
     private Integer totalEntitiesCount;
     private Integer currentPage;
     private Integer pageCount;
     private Integer countOnPage;
-    private List<UserDto> entities;
+    private List<T> entities;
 
-    public PageDto(Integer totalEntitiesCount, Integer currentPage, Integer pageCount, Integer countOnPage, List<UserDto> entities) {
+    public PageDto(Integer totalEntitiesCount, Integer currentPage, Integer pageCount, Integer countOnPage, List<T> entities) {
         this.totalEntitiesCount = totalEntitiesCount;
         this.currentPage = currentPage;
         this.pageCount = pageCount;
@@ -52,11 +52,11 @@ public class PageDto<UserDto> {
         this.countOnPage = countOnPage;
     }
 
-    public List<UserDto> getEntities() {
+    public List<T> getEntities() {
         return entities;
     }
 
-    public void setEntities(List<UserDto> entities) {
+    public void setEntities(List<T> entities) {
         this.entities = entities;
     }
 }

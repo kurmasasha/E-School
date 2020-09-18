@@ -1,6 +1,5 @@
 package com.jm.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,7 +7,6 @@ import javax.persistence.Id;
 public class Task {
 
     @Id
-    @Column(name = "id_task")
     private Long id;
 
     private String type;

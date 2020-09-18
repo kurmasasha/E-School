@@ -2,20 +2,23 @@ package com.jm.model;
 
 import com.jm.dto.OrderingTaskAnswerDto;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class OrderingTaskItem {
 
     @Id
-    @Column(name = "id_ordering_task_item")
     private Long id;
 
     private Integer position;
     private String itemText;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_task")
+    @JoinColumn(name = "ordering_task_id")
     private OrderingTask task;
 
     public OrderingTaskItem() {

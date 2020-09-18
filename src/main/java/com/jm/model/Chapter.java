@@ -2,20 +2,23 @@ package com.jm.model;
 
 import com.jm.dto.ChapterDto;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Chapter {
 
     @Id
-    @Column(name = "id_chapter")
     private Long id;
 
     private String name;
     private Integer position;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_module")
+    @JoinColumn(name = "module_id")
     private Module module;
 
     public Chapter() {
