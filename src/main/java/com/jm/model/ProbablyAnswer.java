@@ -11,6 +11,8 @@ public class ProbablyAnswer {
     private Long id;
 
     private String text;
+
+    @Column(name = "is_right")
     private Boolean right;
 
     @ManyToOne(fetch = FetchType.LAZY)

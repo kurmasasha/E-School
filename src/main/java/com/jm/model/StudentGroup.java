@@ -1,6 +1,7 @@
 package com.jm.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class StudentGroup {
@@ -14,6 +15,10 @@ public class StudentGroup {
     @ManyToOne
     @JoinColumn(name = "id_course")
     private Course course;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "id_course")
+//    private CourseInfo courseInfo;
 
     @ManyToOne
     @JoinColumn(name = "id_user")
@@ -54,4 +59,13 @@ public class StudentGroup {
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
+
+//    public CourseInfo getCourseInfo() {
+//        return courseInfo;
+//    }
+//
+//    public void setCourseInfo(CourseInfo courseInfo) {
+//        this.courseInfo = courseInfo;
+//    }
+
 }
