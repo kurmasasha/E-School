@@ -2,23 +2,30 @@ package com.jm.model;
 
 import com.jm.dto.CourseInfoDto;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class CourseInfo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_course")
+    @JoinColumn(name = "course_id")
     private Course course;
 
     private String description;
     private String about;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_teacher")
+    @JoinColumn(name = "teacher_id")
     private Teacher curator;
 
     public CourseInfo() {

@@ -2,23 +2,29 @@ package com.jm.model;
 
 import com.jm.dto.CourseTaskDto;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class CourseTask {
 
     @Id
-    @Column(name = "id_course_task")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_task")
+    @JoinColumn(name = "task_id")
     private Task task;
 
     private Integer position;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_chapter")
+    @JoinColumn(name = "chapter_id")
     private Chapter chapter;
 
     public CourseTask() {

@@ -2,15 +2,16 @@ package com.jm.model;
 
 import com.jm.dto.DirectionDto;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Direction {
 
     @Id
-    @Column(name = "id_direction")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;

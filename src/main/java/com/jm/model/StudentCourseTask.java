@@ -1,6 +1,14 @@
 package com.jm.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity
@@ -8,11 +16,11 @@ import java.util.List;
 public class StudentCourseTask {
 
     @Id
-    @Column(name = "id_student_course_task")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_course_task")
+    @JoinColumn(name = "course_task_id")
     private CourseTask courseTask;
 
     private Boolean isRight;
@@ -21,7 +29,7 @@ public class StudentCourseTask {
     private Boolean isSolved;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_student_course_info")
+    @JoinColumn(name = "student_course_info_id")
     private StudentCourseInfo studentCourseInfo;
 
     @OneToMany

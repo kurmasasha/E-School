@@ -16,15 +16,19 @@ public class TeacherUserDto {
 
     public TeacherUserDto(Long teacherId, String email, String firstName, String lastName, String directionName,
                           Boolean isCurator, List<GroupInfoDto> groups, List<CourseInfoDto> courses, Boolean enabled) {
-        this.teacherId = teacherId;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this(teacherId, email, firstName, lastName);
         this.directionName = directionName;
         this.isCurator = isCurator;
         this.groups = groups;
         this.courses = courses;
         this.enabled = enabled;
+    }
+
+    public TeacherUserDto(Long teacherId, String email, String firstName, String lastName) {
+        this.teacherId = teacherId;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     /* GETTERS AND SETTERS */
