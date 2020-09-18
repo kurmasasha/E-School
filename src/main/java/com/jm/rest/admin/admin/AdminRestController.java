@@ -19,6 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Rest контроллер для администраторов
+ *
+ * @version 1.0
+ * @author Java Mentor
+ */
 @RestController
 @RequestMapping("/api/admin/user/admin")
 public class AdminRestController {
@@ -29,6 +35,12 @@ public class AdminRestController {
         this.userService = userService;
     }
 
+    /**
+     *
+     * @param page
+     * @param search
+     * @return
+     */
     @GetMapping
     public ResponseDto<?> getUsersBySearch(@RequestParam Integer page,
                                            @RequestParam String search) {
@@ -38,19 +50,35 @@ public class AdminRestController {
         return ResponseDto.ok(pageDto);
     }
 
+    /**
+     *
+     * @param userId
+     * @return
+     */
     @GetMapping("/{userId}")
-    public UserDto getUserDtoById(@PathVariable Long userId) {
+    public UserDto getUserById(@PathVariable Long userId) {
         return userService.getUserById(userId);
     }
 
+    /**
+     *
+     * @param userPostDto
+     * @return
+     */
     @PostMapping
-    public ResponseDto<?> createUserPostDto(@RequestBody UserPostDto userPostDto) {
+    public ResponseDto<?> saveUser(@RequestBody UserPostDto userPostDto) {
         userService.saveUser(userPostDto);
         return ResponseDto.ok(userPostDto);
     }
 
+    /**
+     *
+     * @param userDto
+     * @param userId
+     * @return
+     */
     @PutMapping("/{userId}")
-    public ResponseDto<?> updateUserDto(@RequestBody UserDto userDto, @PathVariable Long userId) {
+    public ResponseDto<?> updateUser(@RequestBody UserDto userDto, @PathVariable Long userId) {
         if (userService.updateUser(userDto, userId)) {
             List<UserDto> users = Collections.singletonList(userService.getUserById(userId));
             PageDto<UserDto> pageDto = new PageDto<>(users.size(), 0, 0, 0, users);
@@ -61,8 +89,13 @@ public class AdminRestController {
         }
     }
 
+    /**
+     *
+     * @param userId
+     * @return
+     */
     @DeleteMapping("/{userId}")
-    public ResponseDto<?> deleteUserDto(@PathVariable Long userId) {
+    public ResponseDto<?> deleteUser(@PathVariable Long userId) {
         PageDto<UserDto> pageDto = new PageDto<>(0, 0, 0, 0, Collections.emptyList());
 
         if (userService.deleteUserById(userId)) {
