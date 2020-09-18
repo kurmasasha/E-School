@@ -1,14 +1,18 @@
 package com.jm.service.user;
 
 import com.jm.dto.UserDto;
+import com.jm.dto.UserPostDto;
 import com.jm.model.User;
-import com.jm.repository.user.UserRepository;
+import com.jm.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -23,9 +27,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.existsUserByEmail(email);
     }
 
-
     @Override
-    public UserDto getUserDtoById(Long userId) {
+    public UserDto getUserById(Long userId) {
         return userRepository.getUserById(userId);
     }
 
@@ -39,27 +42,34 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUserDto(UserDto userDto, Long userId) {
+    public boolean updateUser(UserDto userDto, Long userId) {
         User user = userRepository.getOne(userId);
 
-        if (userRepository.existsUserByEmail(user.getEmail())) {
+        if (this.isUserExist(user.getEmail())) {
             user.setEmail(userDto.getEmail());
             user.setFirstName(userDto.getFirstName());
             user.setLastName(userDto.getLastName());
             userRepository.save(user);
+            return true;
         }
 
         return false;
     }
 
     @Override
-    public boolean deleteUserDtoById(Long userId) {
+    public boolean deleteUserById(Long userId) {
         userRepository.deleteById(userId);
         return true;
     }
 
-//    public boolean addUserPostDto(UserPostDto userPostDto) {
-//        userRepository.saveUserPost(userPostDto);
-//        return true;
-//    }
+    @Override
+    public boolean saveUser(UserPostDto userPostDto) {
+        User user = new User();
+
+        user.setEmail(userPostDto.getEmail());
+        user.setFirstName(userPostDto.getFirstName());
+        user.setLastName(userPostDto.getLastName());
+        userRepository.save(user);
+        return true;
+    }
 }

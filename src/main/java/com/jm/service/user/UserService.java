@@ -1,23 +1,21 @@
 package com.jm.service.user;
 
 import com.jm.dto.UserDto;
-import com.jm.model.User;
-import org.springframework.data.jpa.repository.Query;
+import com.jm.dto.UserPostDto;
 
 import java.util.List;
 
 public interface UserService {
+
     boolean isUserExist(String email);
 
-
-
-    UserDto getUserDtoById(Long userId);
+    UserDto getUserById(Long userId);
 
     List<UserDto> getUsersBySearch(String search);
 
-    boolean updateUserDto(UserDto userDto, Long userId);
+    boolean updateUser(UserDto userDto, Long userId);
 
-    boolean deleteUserDtoById(Long userId);
+    boolean deleteUserById(Long userId);
 
-//    boolean addUserPostDto(UserPostDto userPostDto);
+    boolean saveUser(UserPostDto userPostDto);
 }

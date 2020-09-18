@@ -1,12 +1,10 @@
-package com.jm.repository.user;
+package com.jm.repository;
 
 import com.jm.dto.UserDto;
-import com.jm.dto.UserPostDto;
 import com.jm.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.lang.Nullable;
 
 import java.util.List;
 
@@ -22,10 +20,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT new com.jm.dto.UserDto(u.id, u.email, u.firstName, u.lastName) FROM User u")
     List<UserDto> getAllUsers();
 
-    void deleteById(@Nullable Long userId);
+    void deleteById(Long userId);
 
-    // Новый метод
     boolean existsUserByEmail(String email);
-
-    // void saveUserPost(UserPostDto userPostDto);
 }
