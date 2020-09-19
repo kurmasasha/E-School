@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
      * метод обновления юзера
      *
      * @param userDto объект, который содержит данные юзера
-     * @param userId  ID юзера
+     * @param userId ID юзера
      * @return boolean, который содержит булев результат
      */
     @Override

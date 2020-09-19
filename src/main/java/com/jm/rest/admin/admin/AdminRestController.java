@@ -22,8 +22,8 @@ import java.util.List;
 /**
  * Rest контроллер для администраторов
  *
- * @version 1.0
  * @author Java Mentor
+ * @version 1.0
  */
 @RestController
 @RequestMapping("/api/admin/user/admin")
