@@ -40,7 +40,7 @@ public class AdminRestController {
      *
      * @param page номер страницы
      * @param search поисковой запрос
-     * @return ResponseDto, который содержит результат запроса
+     * @return ResponseDto, который содержит результат
      */
     @GetMapping
     public ResponseDto<?> getUsersBySearch(@RequestParam Integer page,
@@ -66,7 +66,7 @@ public class AdminRestController {
      * метод добавления юзера
      *
      * @param userPostDto объект, который содержит данные юзера
-     * @return ResponseDto, который содержит результат запроса
+     * @return ResponseDto, который содержит результат
      */
     @PostMapping
     public ResponseDto<?> saveUser(@RequestBody UserPostDto userPostDto) {
@@ -79,7 +79,7 @@ public class AdminRestController {
      *
      * @param userDto объект, который содержит данные юзера
      * @param userId ID юзера
-     * @return ResponseDto, который содержит результат запроса
+     * @return ResponseDto, который содержит результат
      */
     @PutMapping("/{userId}")
     public ResponseDto<?> updateUser(@RequestBody UserDto userDto, @PathVariable Long userId) {
@@ -97,7 +97,7 @@ public class AdminRestController {
      * метод удаления юзера по ID
      *
      * @param userId ID юзера
-     * @return ResponseDto, который содержит результат запроса
+     * @return ResponseDto, который содержит результат
      */
     @DeleteMapping("/{userId}")
     public ResponseDto<?> deleteUser(@PathVariable Long userId) {
