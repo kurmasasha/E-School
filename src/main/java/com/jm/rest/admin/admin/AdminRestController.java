@@ -36,10 +36,11 @@ public class AdminRestController {
     }
 
     /**
+     * метод получения юзеров по поисковому запросу
      *
-     * @param page
-     * @param search
-     * @return
+     * @param page номер страницы
+     * @param search поисковой запрос
+     * @return ResponseDto, который содержит результат запроса
      */
     @GetMapping
     public ResponseDto<?> getUsersBySearch(@RequestParam Integer page,
@@ -51,9 +52,10 @@ public class AdminRestController {
     }
 
     /**
+     * метод получения юзера по ID
      *
-     * @param userId
-     * @return
+     * @param userId ID юзера
+     * @return UserDto, который содержит данные юзера
      */
     @GetMapping("/{userId}")
     public UserDto getUserById(@PathVariable Long userId) {
@@ -61,9 +63,10 @@ public class AdminRestController {
     }
 
     /**
+     * метод добавления юзера
      *
-     * @param userPostDto
-     * @return
+     * @param userPostDto объект, который содержит данные юзера
+     * @return ResponseDto, который содержит результат запроса
      */
     @PostMapping
     public ResponseDto<?> saveUser(@RequestBody UserPostDto userPostDto) {
@@ -72,10 +75,11 @@ public class AdminRestController {
     }
 
     /**
+     * метод обновления юзера по ID
      *
-     * @param userDto
-     * @param userId
-     * @return
+     * @param userDto объект, который содержит данные юзера
+     * @param userId ID юзера
+     * @return ResponseDto, который содержит результат запроса
      */
     @PutMapping("/{userId}")
     public ResponseDto<?> updateUser(@RequestBody UserDto userDto, @PathVariable Long userId) {
@@ -90,9 +94,10 @@ public class AdminRestController {
     }
 
     /**
+     * метод удаления юзера по ID
      *
-     * @param userId
-     * @return
+     * @param userId ID юзера
+     * @return ResponseDto, который содержит результат запроса
      */
     @DeleteMapping("/{userId}")
     public ResponseDto<?> deleteUser(@PathVariable Long userId) {

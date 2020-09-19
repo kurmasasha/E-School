@@ -12,9 +12,9 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT new com.jm.dto.UserDto(u.id, u.email, u.firstName, u.lastName) FROM User u WHERE u.id=:userId")
-    UserDto getUserById(Long userId);
+    UserDto findUserById(Long userId);
 
-    @Query("SELECT new com.jm.dto.UserDto(u.id, u.email, u.firstName, u.lastName) FROM User u WHERE CONCAT(u.firstName, u.lastName) LIKE %?1")
+    @Query("SELECT new com.jm.dto.UserDto(u.id, u.email, u.firstName, u.lastName) FROM User u WHERE CONCAT(u.firstName, u.lastName) LIKE %?1%")
     List<UserDto> getAllBySearch(String search);
 
     @Query("SELECT new com.jm.dto.UserDto(u.id, u.email, u.firstName, u.lastName) FROM User u")
