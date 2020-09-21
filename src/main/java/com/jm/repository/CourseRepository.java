@@ -11,9 +11,13 @@ import static org.hibernate.loader.Loader.SELECT;
 
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-//    Check if the course exists
+    /**
+     * Возвращает количество найденых курсов по его id
+     * @param id
+     * @return
+     */
+
     @Query(value = "select count(c) from Course c where c.id = ?1")
     Long isCourseExist(long id);
-
 
 }

@@ -1,8 +1,6 @@
 package com.jm.dto;
 
-public class CourseDto {
-
-    private Long courseId;
+public class CoursePostDto {
     private String name;
     private Long directionId;
     private Long curatorId;
@@ -11,9 +9,7 @@ public class CourseDto {
     private String about;
     private String teacher;
 
-    public CourseDto(Long courseId, String name, Long directionId, Long curatorId, Boolean available,
-                     String htmlBody, String about, String teacher) {
-        this.courseId = courseId;
+    public CoursePostDto(String name, Long directionId, Long curatorId, Boolean available, String htmlBody, String about, String teacher) {
         this.name = name;
         this.directionId = directionId;
         this.curatorId = curatorId;
@@ -23,36 +19,7 @@ public class CourseDto {
         this.teacher = teacher;
     }
 
-    public CourseDto(CoursePutDto coursePut) {
-        this.courseId = coursePut.getCourseId();
-        this.name = coursePut.getName();
-        this.directionId = coursePut.getDirectionId();
-        this.curatorId = coursePut.getCuratorId();
-        this.available = coursePut.getAvailable();
-        this.htmlBody = coursePut.getHtmlBody();
-        this.about = coursePut.getAbout();
-        this.teacher = coursePut.getTeacher();
-    }
-
-    public CourseDto(CoursePostDto coursePut) {
-        this.name = coursePut.getName();
-        this.directionId = coursePut.getDirectionId();
-        this.curatorId = coursePut.getCuratorId();
-        this.available = coursePut.getAvailable();
-        this.htmlBody = coursePut.getHtmlBody();
-        this.about = coursePut.getAbout();
-        this.teacher = coursePut.getTeacher();
-    }
-
-    /* GETTERS AND SETTERS */
-
-    public Long getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
-    }
+    /* GETTERS AND SETTERS*/
 
     public String getName() {
         return name;

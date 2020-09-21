@@ -2,13 +2,7 @@ package com.jm.model;
 
 import com.jm.dto.CourseDto;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,7 +18,7 @@ public class Course {
     private Boolean isAvailable = false;
     private LocalDateTime creatingTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "direction_id")
     private Direction direction;
 
@@ -38,7 +32,7 @@ public class Course {
         this.htmlBody = courseDto.getHtmlBody();
         this.aboutTeacherInfo = courseDto.getTeacher();
         this.isAvailable = courseDto.getAvailable();
-        this.direction.setId(courseDto.getDirectionId());
+//        this.direction.setId(courseDto.getDirectionId());
     }
 
     public Long getId() {
