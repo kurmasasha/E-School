@@ -25,7 +25,6 @@ public class User {
     private String lastName;
     private String password;
     private Boolean enabled = true;
-    private Role role;
 
     @Column(name = "registration_date")
     private LocalDateTime registrationDate;
@@ -34,11 +33,12 @@ public class User {
 
     }
 
-    public User(UserDto userDto) {
-        this.id = userDto.getUserId();
-        this.email = userDto.getEmail();
-        this.firstName = userDto.getFirstName();
-        this.password = userDto.getLastName();
+    public User(String email, String firstName, String lastName, String password, LocalDateTime registrationDate) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.registrationDate = registrationDate;
     }
 
     public Long getId() {
@@ -87,14 +87,6 @@ public class User {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public LocalDateTime getRegistrationDate() {
