@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface DirectionRepository extends JpaRepository<Direction, Long> {
 
-    @Query(value = "select new com.jm.dto.DirectionDto(d) from Direction d")
+    @Query(value = "select new com.jm.dto.DirectionDto(d.id, d.name) from Direction d")
     List<DirectionDto> getAllDirection();
 }

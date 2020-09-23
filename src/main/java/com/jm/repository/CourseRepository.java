@@ -29,7 +29,13 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
      * @return
      */
 
-    @Query(value = "select new com.jm.dto.CourseDto(c)" +
+    @Query(value = "select new com.jm.dto.CourseDto(" +
+            "c.id," +
+            "c.name," +
+            "c.direction.id," +
+            "c.curator.id ," +
+            "c.isAvailable," +
+            "c.htmlBody)" +
             " from Course c where c.id = ?1")
     CourseDto getCourseById(long id);
 //
@@ -39,7 +45,13 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
      * @return
      */
 
-    @Query(value = "select new com.jm.dto.CourseDto(c)" +
+    @Query(value = "select new com.jm.dto.CourseDto(" +
+            "c.id," +
+            "c.name," +
+            "c.direction.id," +
+            "c.curator.id ," +
+            "c.isAvailable," +
+            "c.htmlBody)" +
             " from Course c")
     List<CourseDto> getAllCourse();
 
@@ -50,7 +62,12 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
      * @return
      */
 
-    @Query(value = "select new com.jm.dto.CourseDto(c)" +
+    @Query(value = "select new com.jm.dto.CourseDto(c.id," +
+            "c.name," +
+            "c.direction.id," +
+            "c.curator.id ," +
+            "c.isAvailable," +
+            "c.htmlBody)" +
             " from Course c where c.name like ?1")
     List<CourseDto> findAllCourseByNameLike(String search);
 
@@ -61,9 +78,10 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
      */
 
     @Query(value = "select new com.jm.dto.CuratorForCourseDto(" +
-            "c.curator.id" +
-            ", c.curator.email" +
-            ", c.curator.firstName, c.curator.lastName) " +
+            "c.curator.id," +
+            "c.curator.email," +
+            "c.curator.firstName, " +
+            "c.curator.lastName) " +
             "from Course c where c.direction.id = ?1")
     List<CuratorForCourseDto> findAllCuratorByDirection_id(long id);
 //
@@ -74,9 +92,9 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     @Query(value = "select new com.jm.dto.CuratorForCourseDto(" +
             "c.curator.id," +
-            " c.curator.email," +
-            " c.curator.firstName," +
-            " c.curator.lastName) from Course c where c.curator is not null")
+            "c.curator.email," +
+            "c.curator.firstName," +
+            "c.curator.lastName) from Course c where c.curator is not null")
     List<CuratorForCourseDto> findAllCurators();
 
     /**
@@ -85,7 +103,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
      * @return
      */
 
-    @Query(value = "select new com.jm.dto.CoursePageDto(c) from Course c where c.name like ?1")
+    @Query(value = "select new com.jm.dto.CoursePageDto(c.id,c.name,c.direction.name,c.curator.lastName,c.curator.firstName,c.isAvailable) from Course c where c.name like ?1")
     List<CoursePageDto> getCoursePageDtoLike(String search);
 
     /**
@@ -93,7 +111,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
      * @return
      */
 
-    @Query(value = "select new com.jm.dto.CoursePageDto(c) from Course c")
+    @Query(value = "select new com.jm.dto.CoursePageDto(c.id,c.name,c.direction.name,c.curator.lastName,c.curator.firstName,c.isAvailable) from Course c")
     List<CoursePageDto> getAllCoursePageDto();
 
 }

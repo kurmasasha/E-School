@@ -14,24 +14,15 @@ public class CourseDto {
     private String teacher;
 
     public CourseDto(Long courseId, String name, Long directionId, Long curatorId, Boolean available,
-                     String htmlBody, String about, String teacher) {
+                     String htmlBody) {
         this.courseId = courseId;
         this.name = name;
         this.directionId = directionId;
         this.curatorId = curatorId;
         this.available = available;
         this.htmlBody = htmlBody;
-        this.about = about;
-        this.teacher = teacher;
-    }
-
-    public CourseDto(Course course) {
-        this.courseId = course.getId();
-        this.name = course.getName();
-        this.directionId = course.getDirection().getId();
-        this.curatorId = course.getCurator().getId();
-        this.available = course.getAvailable();
-        this.htmlBody = course.getHtmlBody();
+//        this.about = about;
+//        this.teacher = teacher;
     }
 
     /* GETTERS AND SETTERS */

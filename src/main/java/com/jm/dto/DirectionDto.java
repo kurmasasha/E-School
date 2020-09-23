@@ -12,11 +12,6 @@ public class DirectionDto {
         this.name = name;
     }
 
-    public DirectionDto(Direction direction) {
-        this.directionId = direction.getId();
-        this.name = direction.getName();
-    }
-
     /* GETTERS AND SETTERS */
 
     public Long getDirectionId() {
