@@ -62,7 +62,7 @@ public class GroupController {
         if (directionId.isPresent()) {
             teachers = groupService.getTeachersByDirectionId(directionId.get());
         } else {
-            teachers = groupService.getAllTeachers();
+            teachers = groupService.getAllTeachersForGroup();
         }
         return teachers;
     }

@@ -26,4 +26,11 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
             "FROM User u " +
             "WHERE u.id = :id AND TYPE(u) = Teacher")
     TeacherUserDto getTeacherUserDtoByTeacherId(@Param("id") Long teacherId);
+
+    @Query("select new com.jm.dto.TeacherForGroupDto(user.id," +
+                                                    "user.email, " +
+                                                    "user.firstName, " +
+                                                    "user.lastName)" +
+                                            "from User user WHERE TYPE(user) = Teacher")
+    List<TeacherForGroupDto> getAllTeachersForGroup();
 }

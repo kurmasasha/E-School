@@ -22,8 +22,8 @@ public class GroupServiceImpl implements GroupService {
     private final TeacherRepository teacherRepository;
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
-    private final List<TeacherForGroupDto> teacherForGroupDtoList = new ArrayList<>();
     private final List<GroupPageDto> groupPageDtoList = new ArrayList<>();
+    private List<TeacherForGroupDto> teacherForGroupDtoList = new ArrayList<>();
     private List<CourseDto> courseDtoList = new ArrayList<>();
 
     @Autowired
@@ -78,18 +78,9 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public List<TeacherForGroupDto> getAllTeachers() {
+    public List<TeacherForGroupDto> getAllTeachersForGroup() {
 
-        teacherForGroupDtoList.clear();
-        List<Teacher> teachers = teacherRepository.findAll();
-
-        for (Teacher i : teachers) {
-            TeacherForGroupDto currentDto = new TeacherForGroupDto(i.getId(),
-                                                                   i.getEmail(),
-                                                                   i.getFirstName(),
-                                                                   i.getLastName());
-            teacherForGroupDtoList.add(currentDto);
-        }
+        teacherForGroupDtoList = teacherRepository.getAllTeachersForGroup();
 
         return teacherForGroupDtoList;
     }

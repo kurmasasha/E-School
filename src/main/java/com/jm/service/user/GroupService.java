@@ -16,7 +16,7 @@ public interface GroupService {
 
     List<TeacherForGroupDto> getTeachersByDirectionId(Long directionId);
 
-    List<TeacherForGroupDto> getAllTeachers();
+    List<TeacherForGroupDto> getAllTeachersForGroup();
 
     List<StudentUserDto> getStudentsInGroup(Long groupId);
 
