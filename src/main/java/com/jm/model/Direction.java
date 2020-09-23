@@ -1,13 +1,13 @@
 package com.jm.model;
 
-import com.jm.dto.DirectionDto;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "directions")
 public class Direction {
 
     @Id
@@ -20,9 +20,8 @@ public class Direction {
 
     }
 
-    public Direction(DirectionDto directionDto) {
-        id = directionDto.getDirectionId();
-        name = directionDto.getName();
+    public Direction(String name) {
+        this.name = name;
     }
 
     public Long getId() {

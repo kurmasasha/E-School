@@ -1,11 +1,18 @@
 package com.jm.model;
 
-import com.jm.dto.CourseDto;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "courses")
 public class Course {
 
     @Id
@@ -13,12 +20,16 @@ public class Course {
     private Long id;
 
     private String name;
+    private String description;
     private String htmlBody;
-    private String aboutTeacherInfo;
     private Boolean isAvailable = false;
     private LocalDateTime creatingTime;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
+    private Teacher curator;
+
+    @ManyToOne
     @JoinColumn(name = "direction_id")
     private Direction direction;
 
@@ -26,13 +37,13 @@ public class Course {
 
     }
 
-    public Course(CourseDto courseDto) {
-        this.id = courseDto.getCourseId();
-        this.name = courseDto.getName();
-        this.htmlBody = courseDto.getHtmlBody();
-        this.aboutTeacherInfo = courseDto.getTeacher();
-        this.isAvailable = courseDto.getAvailable();
-//        this.direction.setId(courseDto.getDirectionId());
+    public Course(String name, String description, String htmlBody, LocalDateTime creatingTime, Teacher curator, Direction direction) {
+        this.name = name;
+        this.description = description;
+        this.htmlBody = htmlBody;
+        this.creatingTime = creatingTime;
+        this.curator = curator;
+        this.direction = direction;
     }
 
     public Long getId() {
@@ -51,20 +62,20 @@ public class Course {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getHtmlBody() {
         return htmlBody;
     }
 
     public void setHtmlBody(String htmlBody) {
         this.htmlBody = htmlBody;
-    }
-
-    public String getAboutTeacherInfo() {
-        return aboutTeacherInfo;
-    }
-
-    public void setAboutTeacherInfo(String aboutTeacherInfo) {
-        this.aboutTeacherInfo = aboutTeacherInfo;
     }
 
     public Boolean getAvailable() {
@@ -81,6 +92,14 @@ public class Course {
 
     public void setCreatingTime(LocalDateTime creatingTime) {
         this.creatingTime = creatingTime;
+    }
+
+    public Teacher getCurator() {
+        return curator;
+    }
+
+    public void setCurator(Teacher curator) {
+        this.curator = curator;
     }
 
     public Direction getDirection() {

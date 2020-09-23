@@ -6,13 +6,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "probably_answer")
-public class ProbablyAnswer {
+@Table(name = "possible_answers")
+public class PossibleAnswer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,12 +26,18 @@ public class ProbablyAnswer {
     @Column(name = "is_right")
     private Boolean right;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "theory_task_id")
     private TheoryTask theoryTask;
 
-    public ProbablyAnswer() {
+    public PossibleAnswer() {
 
+    }
+
+    public PossibleAnswer(String text, Boolean right, TheoryTask theoryTask) {
+        this.text = text;
+        this.right = right;
+        this.theoryTask = theoryTask;
     }
 
     public Long getId() {
