@@ -80,7 +80,7 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public List<TeacherForGroupDto> getAllTeachersForGroup() {
 
-        teacherForGroupDtoList = teacherRepository.getAllTeachersForGroup();
+        teacherForGroupDtoList = teacherRepository.getAllTeachersForGroupDto();
 
         return teacherForGroupDtoList;
     }

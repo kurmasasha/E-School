@@ -32,5 +32,5 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
                                                     "user.firstName, " +
                                                     "user.lastName)" +
                                             "from User user WHERE TYPE(user) = Teacher")
-    List<TeacherForGroupDto> getAllTeachersForGroup();
+    List<TeacherForGroupDto> getAllTeachersForGroupDto();
 }
