@@ -29,11 +29,12 @@ public class User {
 
     }
 
-    public User(String email, String firstName, String lastName, String password, Boolean enabled) {
+    public User(String email, String firstName, String lastName, String password, Boolean enabled, LocalDateTime registrationDate) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+        this.registrationDate = registrationDate;
         this.enabled = enabled;
     }
 

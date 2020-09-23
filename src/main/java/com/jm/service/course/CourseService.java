@@ -1,9 +1,6 @@
 package com.jm.service.course;
 
-import com.jm.dto.CourseDto;
-import com.jm.dto.CoursePostDto;
-import com.jm.dto.CoursePutDto;
-import com.jm.dto.CuratorForCourseDto;
+import com.jm.dto.*;
 
 import java.util.List;
 
@@ -58,4 +55,11 @@ public interface CourseService {
      */
 
     List<CuratorForCourseDto> getCuratorsByDirection_Id(Long directionId);
+
+    /**
+     * Возвращает лист CoursePage
+     * @return
+     */
+
+    List<CoursePageDto> getCoursePageDto(String search);
 }

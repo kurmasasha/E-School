@@ -23,7 +23,7 @@ public class DirectionServiceImpl implements DirectionService {
 
     @Override
     public List<DirectionDto> getAllDirectionDto() {
-        return directionRepository.findAll().stream().map((Direction d) -> new DirectionDto(d.getId(),d.getName())).collect(Collectors.toList());
+        return directionRepository.getAllDirection();
     }
 
     @Override

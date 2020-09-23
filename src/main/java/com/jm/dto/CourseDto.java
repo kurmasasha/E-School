@@ -1,5 +1,7 @@
 package com.jm.dto;
 
+import com.jm.model.Course;
+
 public class CourseDto {
 
     private Long courseId;
@@ -23,25 +25,13 @@ public class CourseDto {
         this.teacher = teacher;
     }
 
-    public CourseDto(CoursePutDto coursePut) {
-        this.courseId = coursePut.getCourseId();
-        this.name = coursePut.getName();
-        this.directionId = coursePut.getDirectionId();
-        this.curatorId = coursePut.getCuratorId();
-        this.available = coursePut.getAvailable();
-        this.htmlBody = coursePut.getHtmlBody();
-        this.about = coursePut.getAbout();
-        this.teacher = coursePut.getTeacher();
-    }
-
-    public CourseDto(CoursePostDto coursePut) {
-        this.name = coursePut.getName();
-        this.directionId = coursePut.getDirectionId();
-        this.curatorId = coursePut.getCuratorId();
-        this.available = coursePut.getAvailable();
-        this.htmlBody = coursePut.getHtmlBody();
-        this.about = coursePut.getAbout();
-        this.teacher = coursePut.getTeacher();
+    public CourseDto(Course course) {
+        this.courseId = course.getId();
+        this.name = course.getName();
+        this.directionId = course.getDirection().getId();
+        this.curatorId = course.getCurator().getId();
+        this.available = course.getAvailable();
+        this.htmlBody = course.getHtmlBody();
     }
 
     /* GETTERS AND SETTERS */

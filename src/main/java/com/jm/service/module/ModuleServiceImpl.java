@@ -28,9 +28,10 @@ public class ModuleServiceImpl implements ModuleService {
 
     @Override
     public boolean save(ModulePostDto modulePost) {
-        ModuleDto moduleDto = new ModuleDto(null, modulePost.getName()
-                , modulePost.getDescription(), null);
-        moduleRepository.save(new Module(moduleDto));
+        Module module = new Module();
+        module.setName(modulePost.getName());
+        module.setDescription(modulePost.getDescription());
+        moduleRepository.save(module);
         return true;
     }
 }

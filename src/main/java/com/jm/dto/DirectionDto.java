@@ -1,5 +1,7 @@
 package com.jm.dto;
 
+import com.jm.model.Direction;
+
 public class DirectionDto {
 
     private Long directionId;
@@ -8,6 +10,11 @@ public class DirectionDto {
     public DirectionDto(Long directionId, String name) {
         this.directionId = directionId;
         this.name = name;
+    }
+
+    public DirectionDto(Direction direction) {
+        this.directionId = direction.getId();
+        this.name = direction.getName();
     }
 
     /* GETTERS AND SETTERS */

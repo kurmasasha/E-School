@@ -23,15 +23,21 @@ public class AdminCourseController {
         this.moduleService = moduleService;
     }
 
-//    @GetMapping
-//    public ResponseDto<CoursePageDto> getCourseByName(@RequestParam Integer page,
-//                                                   @RequestParam String search){
-//        List<FieldError> errors = new ArrayList<>();
-//        List<CoursePageDto> coursePages = courseService;
-//        PageDto<CoursePageDto> pageDto = new PageDto<>(coursePages.size(),page,0,0,coursePages);
-//        System.out.println(page + " " + search);
-//        return new ResponseDto<>(HttpStatus.OK.value(), true, "Success", errors, pageDto);
-//    }
+    /**
+     * Get метод, возвращает все курсы в виде лист CoursePage, если передан параметр search
+     * , то только курсы в имени которых содержится эта строка
+     * @param page
+     * @param search
+     * @return
+     */
+
+    @GetMapping
+    public ResponseDto<?> getCoursePageDto(@RequestParam Integer page,
+                                           @RequestParam(required = false) String search){
+        List<CoursePageDto> coursePages = courseService.getCoursePageDto(search);
+        PageDto<CoursePageDto> pageDto = new PageDto<>(coursePages.size(),page,0,0,coursePages);
+        return ResponseDto.ok(pageDto);
+    }
 
     /**
      * Delete метод, удаляющий курс по его id

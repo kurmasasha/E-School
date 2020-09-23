@@ -1,11 +1,7 @@
 package com.jm.rest.course;
 
 import com.jm.dto.CourseDto;
-import com.jm.dto.DirectionDto;
-import com.jm.dto.PageDto;
-import com.jm.dto.ResponseDto;
-import com.jm.repository.CourseInfoRepository;
-import com.jm.service.course.CourseService;
+import com.jm.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/course")
 public class CourseController {
 
-    private final CourseInfoRepository courseInfoRepository;
+    private final CourseRepository courseRepository;
 
     @Autowired
-    public CourseController(CourseInfoRepository courseInfoRepository) {
-        this.courseInfoRepository = courseInfoRepository;
+    public CourseController(CourseRepository courseRepository) {
+        this.courseRepository = courseRepository;
     }
 
     /**
@@ -31,6 +27,6 @@ public class CourseController {
 
     @GetMapping("/{courseId}")
     public CourseDto getCourse(@PathVariable long courseId) {
-        return courseInfoRepository.getCourseInfoByCourse_Id(courseId);
+        return courseRepository.getCourseById(courseId);
     }
 }

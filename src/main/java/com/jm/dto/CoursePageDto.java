@@ -1,5 +1,7 @@
 package com.jm.dto;
 
+import com.jm.model.Course;
+
 public class CoursePageDto {
 
     private Long courseId;
@@ -17,6 +19,14 @@ public class CoursePageDto {
         this.curatorFullName = curatorFullName;
         this.groupsCount = groupsCount;
         this.available = available;
+    }
+
+    public CoursePageDto(Course course) {
+        this.courseId = course.getId();
+        this.name = course.getName();
+        this.directionName = course.getDirection().getName();
+        this.curatorFullName = course.getCurator().getFirstName() + " " + course.getCurator().getLastName();
+        this.available = course.getAvailable();
     }
 
     /* GETTERS AND SETTERS */
