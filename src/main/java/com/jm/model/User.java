@@ -1,14 +1,10 @@
 package com.jm.model;
 
-import com.jm.dto.UserDto;
-
-import javax.management.relation.Role;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
@@ -33,12 +29,13 @@ public class User {
 
     }
 
-    public User(String email, String firstName, String lastName, String password, LocalDateTime registrationDate) {
+    public User(String email, String firstName, String lastName, String password, Boolean enabled, LocalDateTime registrationDate) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.registrationDate = registrationDate;
+        this.enabled = enabled;
     }
 
     public Long getId() {

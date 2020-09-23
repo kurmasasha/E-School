@@ -1,7 +1,5 @@
 package com.jm.model;
 
-import com.jm.dto.ChapterDto;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,8 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "chapters")
 public class Chapter {
 
     @Id
@@ -20,7 +20,7 @@ public class Chapter {
     private String name;
     private Integer position;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "module_id")
     private Module module;
 
@@ -28,10 +28,10 @@ public class Chapter {
 
     }
 
-    public Chapter(ChapterDto chapterDto) {
-        this.id = chapterDto.getChapterId();
-        this.name = chapterDto.getName();
-        this.position = chapterDto.getPosition();
+    public Chapter(String name, Integer position, Module module) {
+        this.name = name;
+        this.position = position;
+        this.module = module;
     }
 
     public Long getId() {

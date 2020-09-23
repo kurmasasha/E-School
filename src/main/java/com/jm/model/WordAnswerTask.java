@@ -4,13 +4,15 @@ import javax.persistence.Entity;
 
 @Entity
 public class WordAnswerTask extends Task {
+
     private String answer;
 
-    public String getAnswer() {
-        return answer;
+    public WordAnswerTask() {
+        type = "word";
     }
 
-    public void setAnswer(String answer) {
+    public WordAnswerTask(String answer) {
+        type = "word";
         this.answer = answer;
     }
 }

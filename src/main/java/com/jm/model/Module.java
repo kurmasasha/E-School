@@ -1,7 +1,5 @@
 package com.jm.model;
 
-import com.jm.dto.ModuleDto;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,11 +8,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "modules")
 public class Module {
 
     @Id
@@ -25,26 +26,27 @@ public class Module {
     private String description;
     private Integer position;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id")
-    private Course course;
-
     @Column(name = "is_open")
     private Boolean isOpen = false;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "open_date")
-    private Date openDate;
+    private LocalDateTime openDate;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 
     public Module() {
 
     }
 
-    public Module(ModuleDto moduleDto) {
-        id = moduleDto.getModuleId();
-        name = moduleDto.getName();
-        description = moduleDto.getDescription();
-        position = moduleDto.getPosition();
+    public Module(String name, String description, Integer position, Boolean isOpen, LocalDateTime openDate, Course course) {
+        this.name = name;
+        this.description = description;
+        this.position = position;
+        this.isOpen = isOpen;
+        this.openDate = openDate;
+        this.course = course;
     }
 
     public Long getId() {
@@ -79,14 +81,6 @@ public class Module {
         this.position = position;
     }
 
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
     public Boolean getOpen() {
         return isOpen;
     }
@@ -95,11 +89,19 @@ public class Module {
         isOpen = open;
     }
 
-    public Date getOpenDate() {
+    public LocalDateTime getOpenDate() {
         return openDate;
     }
 
-    public void setOpenDate(Date openDate) {
+    public void setOpenDate(LocalDateTime openDate) {
         this.openDate = openDate;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }
