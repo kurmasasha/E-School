@@ -1,10 +1,12 @@
 package com.jm.rest.admin.group;
 
 import com.jm.dto.*;
-import com.jm.model.StudentGroup;
+import com.jm.model.User;
 import com.jm.service.user.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,8 +28,8 @@ public class GroupController {
     // переданным направлением, у которых isAvailable true )
 
     @GetMapping("/course")
-    public List<CourseInfoDto> getCoursesByDirectionId(@RequestParam(required = false) Optional<Long> directionId) {
-        List<CourseInfoDto> courses;
+    public List<CourseDto> getCoursesByDirectionId(@RequestParam(required = false) Optional<Long> directionId) {
+        List<CourseDto> courses;
         if (directionId.isPresent()) {
             courses = groupService.getCoursesByDirectionId(directionId.get());
         } else {
@@ -40,14 +42,14 @@ public class GroupController {
     // GET /api/admin/group?page=integer&search=string
     // в качеве ответа приходит ResponseDto<PageDto<GroupPageDto>>
 
-//    @GetMapping
-//    public ResponseDto<PageDto<GroupPageDto>> getGroupsBySearch(@RequestParam Integer page, @RequestParam String search) {
-//
-//        List<GroupPageDto> groups = groupService.getGroupsBySearch(search);
-//        PageDto<GroupPageDto> pageDto = new PageDto<>(groups.size(), page, 0, 0, groups);
-//        return ResponseDto.ok(pageDto);
-//
-//    }
+    @GetMapping
+    public ResponseDto<PageDto<GroupPageDto>> getGroupsBySearch(@RequestParam Integer page, @RequestParam String search) {
+
+        List<GroupPageDto> groups = groupService.getGroupsDtoWithSearch(search);
+        PageDto<GroupPageDto> pageDto = new PageDto<>(groups.size(), page, 0, 0, groups);
+        return ResponseDto.ok(pageDto);
+
+    }
 
 
     // GET /api/admin/group/teacher?directionId
@@ -63,7 +65,6 @@ public class GroupController {
             teachers = groupService.getAllTeachers();
         }
         return teachers;
-
     }
 
 
@@ -72,12 +73,21 @@ public class GroupController {
     // (все которые находятся в группе с флагом removed = false)
 
     @GetMapping("/{groupId}/student")
-    public PageDto<List<StudentUserDto>> getStudentsInGroup(@PathVariable Long groupId,
+    public PageDto<StudentUserDto> getStudentsInGroup(@PathVariable Long groupId,
                                                             @RequestParam Integer page,
                                                             @RequestParam String search) {
 
-        return groupService.getStudentsInGroup(groupId);
-
+        List<StudentUserDto> students = groupService.getStudentsInGroup(groupId);
+        if (!search.isEmpty()) {
+            List<StudentUserDto> studentsBySearch = new ArrayList<>();
+            for (StudentUserDto i : students) {
+                if (i.getFirstName().contains(search) || i.getLastName().contains(search)) {
+                    studentsBySearch.add(i);
+                }
+            }
+            return new PageDto<>(studentsBySearch.size(), page, 0, 0, studentsBySearch);
+        }
+        return new PageDto<>(students.size(), page, 0, 0, students);
     }
 
 
@@ -87,12 +97,15 @@ public class GroupController {
     // сущности связи студента с группой, для сохранения статистики и истории)
 
     @PatchMapping("/{groupId}/student/remove")
+    @Transactional
     public ResponseDto<?> removeStudents(@PathVariable Long groupId, @RequestBody List<Long> removingStudents) {
 
-        StudentGroup group = groupService.getGroupById(groupId);
+        List<User> deleted = new ArrayList<>();
 
-//        group.
-        return ResponseDto.ok().build();
+        for (Long i : removingStudents) {
+            deleted.add(groupService.removeStudentById(i));
+        }
+        return ResponseDto.ok(deleted);
 
     }
 
@@ -103,9 +116,7 @@ public class GroupController {
     @PutMapping("/{groupId}")
     public ResponseDto<?> updateGroup(@PathVariable Long groupId, @RequestBody GroupPostDto groupPostDto) {
 
-        groupService.updateGroupById(groupId, groupPostDto);
-        return ResponseDto.ok().build();
-
+        return ResponseDto.ok(groupService.updateGroupById(groupId, groupPostDto));
 
     }
 

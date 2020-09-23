@@ -9,17 +9,18 @@ public class StudentUserDto {
     private String firstName;
     private String lastName;
     private String directionName;
-    private List<GroupInfoDto> groups;
+    //private List<GroupInfoDto> groups;
     private Boolean enabled;
+    private String groupName;
 
     public StudentUserDto(Long studentId, String email, String firstName, String lastName, String directionName,
-                          List<GroupInfoDto> groups, Boolean enabled) {
+                          String groupName, Boolean enabled) {
         this.studentId = studentId;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.directionName = directionName;
-        this.groups = groups;
+        this.groupName = groupName;
         this.enabled = enabled;
     }
 
@@ -65,12 +66,12 @@ public class StudentUserDto {
         this.directionName = directionName;
     }
 
-    public List<GroupInfoDto> getGroups() {
-        return groups;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setGroups(List<GroupInfoDto> groups) {
-        this.groups = groups;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public Boolean getEnabled() {

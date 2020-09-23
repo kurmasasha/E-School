@@ -1,5 +1,6 @@
 package com.jm.repository;
 
+import com.jm.dto.TeacherForGroupDto;
 import com.jm.dto.TeacherUserDto;
 import com.jm.model.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;

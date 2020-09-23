@@ -19,10 +19,14 @@ public class Course {
     private Long id;
 
     private String name;
+    private String description;
     private String htmlBody;
-    private String aboutTeacherInfo;
     private Boolean isAvailable = false;
     private LocalDateTime creatingTime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private Teacher curator;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "direction_id")
@@ -35,9 +39,11 @@ public class Course {
     public Course(CourseDto courseDto) {
         this.id = courseDto.getCourseId();
         this.name = courseDto.getName();
+        this.description = courseDto.getDescription();
         this.htmlBody = courseDto.getHtmlBody();
-        this.aboutTeacherInfo = courseDto.getTeacher();
         this.isAvailable = courseDto.getAvailable();
+        this.creatingTime = courseDto.getCreatingTime();
+        this.curator.setId(courseDto.getCuratorId());
         this.direction.setId(courseDto.getDirectionId());
     }
 
@@ -65,14 +71,6 @@ public class Course {
         this.htmlBody = htmlBody;
     }
 
-    public String getAboutTeacherInfo() {
-        return aboutTeacherInfo;
-    }
-
-    public void setAboutTeacherInfo(String aboutTeacherInfo) {
-        this.aboutTeacherInfo = aboutTeacherInfo;
-    }
-
     public Boolean getAvailable() {
         return isAvailable;
     }
@@ -95,5 +93,21 @@ public class Course {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Teacher getCurator() {
+        return curator;
+    }
+
+    public void setCurator(Teacher curator) {
+        this.curator = curator;
     }
 }
