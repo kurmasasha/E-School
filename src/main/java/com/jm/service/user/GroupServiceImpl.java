@@ -2,44 +2,59 @@ package com.jm.service.user;
 
 import com.jm.dto.*;
 import com.jm.model.*;
-import com.jm.repository.CourseRepository;
-import com.jm.repository.StudentGroupRepository;
-import com.jm.repository.TeacherRepository;
-import com.jm.repository.UserRepository;
+import com.jm.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Сервис для работы со студенческими группами
+ *
+ * @author Java Mentor
+ *
+ * @version 1.0
+ */
 @Service
 public class GroupServiceImpl implements GroupService {
 
     private final StudentGroupRepository groupRepository;
     private final TeacherRepository teacherRepository;
     private final CourseRepository courseRepository;
-    private final UserRepository userRepository;
+    private final StudentRepository studentRepository;
     private final List<GroupPageDto> groupPageDtoList = new ArrayList<>();
     private List<TeacherForGroupDto> teacherForGroupDtoList = new ArrayList<>();
     private List<CourseDto> courseDtoList = new ArrayList<>();
 
     @Autowired
-    public GroupServiceImpl(StudentGroupRepository groupRepository, TeacherRepository teacherRepository, CourseRepository courseRepository, UserRepository userRepository) {
+    public GroupServiceImpl(StudentGroupRepository groupRepository, TeacherRepository teacherRepository, CourseRepository courseRepository, StudentRepository studentRepository) {
         this.groupRepository = groupRepository;
         this.teacherRepository = teacherRepository;
         this.courseRepository = courseRepository;
-        this.userRepository = userRepository;
+        this.studentRepository = studentRepository;
     }
 
+    /**
+     * метод получения списка курсов по направлению обучения
+     *
+     * @param directionId учетный номер направления обучения
+     * @return List<CourseDto>, который содержит список выбранных курсов
+     */
     @Override
     public List<CourseDto> getCoursesByDirectionId(Long directionId) {
         courseDtoList = courseRepository.findAllWithDirectionId(directionId);
         return courseDtoList;
     }
 
+
+    /**
+     * метод получения списка всех курсов из системы
+     *
+     * @return List<CourseDto>, который содержит список всех курсов
+     */
     @Override
     public List<CourseDto> getAllCourses() {
 
@@ -59,6 +74,12 @@ public class GroupServiceImpl implements GroupService {
         return courseDtoList;
     }
 
+    /**
+     * метод получения групп по поисковому запросу (поиск по имени группы)
+     *
+     * @param search поисковый запрос по имени группы
+     * @return List<GroupPageDto>, который содержит список выбранных групп
+     */
     @Override
     public List<GroupPageDto> getGroupsDtoWithSearch(String search) {
 
@@ -77,6 +98,11 @@ public class GroupServiceImpl implements GroupService {
         return groupPageDtoList;
     }
 
+    /**
+     * метод получения всех учителей из системы
+     *
+     * @return List<TeacherForGroupDto>, который содержит список учителей
+     */
     @Override
     public List<TeacherForGroupDto> getAllTeachersForGroup() {
 
@@ -85,6 +111,12 @@ public class GroupServiceImpl implements GroupService {
         return teacherForGroupDtoList;
     }
 
+    /**
+     * метод получения учителей по направлению обучения
+     *
+     * @param directionId учетный номер направления обучения
+     * @return List<TeacherForGroupDto>, который содержит список выбранных учителей
+     */
     @Override
     public List<TeacherForGroupDto> getTeachersByDirectionId(Long directionId) {
 
@@ -106,12 +138,18 @@ public class GroupServiceImpl implements GroupService {
         return teacherForGroupDtoList;
     }
 
+    /**
+     * метод получения списка студентов по номеру группы
+     *
+     * @param groupId учетный номер группы
+     * @return List<StudentUserDto>, который содержит список студентов в группе, у которых isEnabled = true
+     */
     @Override
     public List<StudentUserDto> getStudentsInGroup(Long groupId) {
 
         List<StudentUserDto> studentsDto = new ArrayList<>();
         StudentGroup group = groupRepository.findById(groupId).get();
-        List<Student> students = group.getStudentList();
+        Set<Student> students = group.getStudentList();
 
         for (Student i : students) {
             if (i.getEnabled()) {
@@ -120,25 +158,44 @@ public class GroupServiceImpl implements GroupService {
                                                    i.getFirstName(),
                                                    i.getLastName(),
                                                    group.getCourse().getDirection().getName(),
-                                                   group.getName(),
+                                                   group.getId(),
                                                    i.getEnabled()));
             }
         }
         return studentsDto;
     }
 
+    /**
+     * метод получения группы по учетному номеру (Id)
+     *
+     * @param groupId учетный номер группы
+     * @return объект StudentGroup, соответствующий учетному номеру
+     */
     @Override
     public StudentGroup getGroupById(Long groupId){
         return groupRepository.findById(groupId).get();
     }
 
+    /**
+     * метод удаления студента из группы по учетному номеру студента (Id) путем утановления полю student.enabled значения false
+     *
+     * @param id учетный номер студента для удаления
+     * @return удаленного студента класса User
+     */
     @Override
-    public User removeStudentById(Long id) {
-        User student = userRepository.findById(id).get();
+    public Student removeStudentById(Long id) {
+        Student student = studentRepository.findById(id).get();
         student.setEnabled(false);
         return student;
     }
 
+    /**
+     * метод обновления учетных данных группы по ее учетному номеру (Id)
+     *
+     * @param groupId учетный номер группы
+     * @param groupPostDto объект, содержащий новые учетные данные
+     * @return объект класса StudentGroup, содержащий новое состояние измененной группы
+     */
     @Override
     @Transactional
     public StudentGroup updateGroupById(Long groupId, GroupPostDto groupPostDto) {

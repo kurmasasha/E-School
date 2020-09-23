@@ -10,6 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Rest контроллер студенческих групп
+ *
+ * @author Java Mentor
+ * @version 1.0
+ */
 @RestController
 @RequestMapping("/api/admin/group")
 public class GroupController {
@@ -21,12 +27,14 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-
-    // GET /api/admin/group/course?directionId=long
-    // (directionId не required параметр) в качтесве ответа приходит List<CourseInfoDto>
-    // (если directionId пустой то все курсы из системы иначе только связаные с
-    // переданным направлением, у которых isAvailable true )
-
+    /**
+     * GET метод получения курсов по направлению обучения. Если параметр не задан, то возвращаются все курсы из системы.
+     *
+     * @param directionId идентификационный номер направления обучения
+     *
+     * @return List<CourseDto> - список курсов, связанных с заданным направлением,
+     * у которых isAvailable = true.
+     */
     @GetMapping("/course")
     public List<CourseDto> getCoursesByDirectionId(@RequestParam(required = false) Optional<Long> directionId) {
         List<CourseDto> courses;
@@ -38,10 +46,15 @@ public class GroupController {
         return courses;
     }
 
-
-    // GET /api/admin/group?page=integer&search=string
-    // в качеве ответа приходит ResponseDto<PageDto<GroupPageDto>>
-
+    /**
+     * GET метод, возвращающий список групп по ключу поиска.
+     *
+     * @param page номер страницы поисковой выдачи
+     *
+     * @param search ключ поискового запроса
+     *
+     * @return ResponseDto, содержащий страницу со списком групп.
+     */
     @GetMapping
     public ResponseDto<PageDto<GroupPageDto>> getGroupsBySearch(@RequestParam Integer page, @RequestParam String search) {
 
@@ -51,11 +64,13 @@ public class GroupController {
 
     }
 
-
-    // GET /api/admin/group/teacher?directionId
-    // (directionId не required параметр) в качестве ответа приходит List<TeacherForGroupDto>
-    // (если directionId пустой то все преподаватели из системы иначе только связаные с переданным направлением )
-
+    /**
+     * GET метод, возвращающий список учителей по направлению обучения. Если запрос пустой, то возвращаются все учителя из системы.
+     *
+     * @param directionId номер страницы поисковой выдачи
+     *
+     * @return List<TeacherForGroupDto>.
+     */
     @GetMapping("/teacher")
     public List<TeacherForGroupDto> getTeachersByDirectionId(@RequestParam(required = false) Optional<Long> directionId) {
         List<TeacherForGroupDto> teachers;
@@ -67,11 +82,14 @@ public class GroupController {
         return teachers;
     }
 
-
-    // GET /api/admin/group/{groupId}/student?page=integer&search=string
-    // В качестве ответа приходит PageDto<List<StudentUserDto>>
-    // (все которые находятся в группе с флагом removed = false)
-
+    /**
+     * GET метод получения списка юзеров по учетному номеру группы с возможностью поисковой фильтрации
+     *
+     * @param groupId учетный номер группы
+     * @param page номер страницы
+     * @param search возможный поисковой запрос
+     * @return PageDto<StudentUserDto>, который содержит результат
+     */
     @GetMapping("/{groupId}/student")
     public PageDto<StudentUserDto> getStudentsInGroup(@PathVariable Long groupId,
                                                             @RequestParam Integer page,
@@ -90,12 +108,13 @@ public class GroupController {
         return new PageDto<>(students.size(), page, 0, 0, students);
     }
 
-
-    // PATCH /api/admin/group/{groupId}/student/remove
-    // в качетсе тела передается список id студентов для удаления из группы
-    // (физичесого удаления сявзи с группой из базы не происходит, менятся флаг removed = true в
-    // сущности связи студента с группой, для сохранения статистики и истории)
-
+    /**
+     * PATCH метод удаления студентов из группы. Удаление происходит путем присвоения false полю student.enabled
+     *
+     * @param groupId учетный номер группы
+     * @param removingStudents список ID студентов для удаления
+     * @return ResponseDto, который содержит список удаленных студентов.
+     */
     @PatchMapping("/{groupId}/student/remove")
     @Transactional
     public ResponseDto<?> removeStudents(@PathVariable Long groupId, @RequestBody List<Long> removingStudents) {
@@ -110,9 +129,13 @@ public class GroupController {
     }
 
 
-    // PUT /api/admin/group/{groupId}
-    // в качетве тела передается GroupPostDto
-
+    /**
+     * PUT метод обновления учетных данных группы.
+     *
+     * @param groupId учетный номер группы
+     * @param groupPostDto объект с новыми учетными данными
+     * @return ResponseDto, который содержит измененное состояние группы.
+     */
     @PutMapping("/{groupId}")
     public ResponseDto<?> updateGroup(@PathVariable Long groupId, @RequestBody GroupPostDto groupPostDto) {
 

@@ -1,6 +1,7 @@
 package com.jm.service.user;
 
 import com.jm.dto.*;
+import com.jm.model.Student;
 import com.jm.model.StudentGroup;
 import com.jm.model.User;
 
@@ -22,7 +23,7 @@ public interface GroupService {
 
     StudentGroup getGroupById(Long groupId);
 
-    User removeStudentById(Long id);
+    Student removeStudentById(Long id);
 
     StudentGroup updateGroupById(Long groupId, GroupPostDto groupPostDto);
 
