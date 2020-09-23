@@ -86,7 +86,7 @@ public class TeacherServiceImpl implements TeacherService {
         if (search.isEmpty()) {
             return repository.getAllTeachers();
         } else {
-            return repository.getAllBySearch(search);
+            return repository.getTeachersWithSearch(search);
         }
     }
 
@@ -98,7 +98,7 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @Override
     public UserDto getTeacherById(Long teacherId) {
-        TeacherUserDto teacherUserDto = repository.getTeacherUserDtoByTeacherId(teacherId);
+        TeacherUserDto teacherUserDto = repository.getTeacherUserDtoWithTeacherId(teacherId);
         return new UserDto(teacherUserDto.getTeacherId(), teacherUserDto.getEmail(),
                 teacherUserDto.getFirstName(), teacherUserDto.getLastName());
     }
@@ -111,7 +111,7 @@ public class TeacherServiceImpl implements TeacherService {
      */
     @Override
     public TeacherUserDto getTeacherUserDtoByTeacherId(Long teacherId) {
-        return repository.getTeacherUserDtoByTeacherId(teacherId);
+        return repository.getTeacherUserDtoWithTeacherId(teacherId);
     }
 
     /**
