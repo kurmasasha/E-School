@@ -1,5 +1,7 @@
 package com.jm.dto;
 
+import com.jm.model.Course;
+
 public class CoursePageDto {
 
     private Long courseId;
@@ -9,13 +11,13 @@ public class CoursePageDto {
     private Integer groupsCount; //(количество групп, в которых находится курс)
     private Boolean available;
 
-    public CoursePageDto(Long courseId, String name, String directionName, String curatorFullName,
-                         Integer groupsCount, Boolean available) {
+    public CoursePageDto(Long courseId, String name, String directionName, String curatorFirstName,String curatorLastName,
+                         Boolean available) {
         this.courseId = courseId;
         this.name = name;
         this.directionName = directionName;
-        this.curatorFullName = curatorFullName;
-        this.groupsCount = groupsCount;
+        this.curatorFullName = curatorFirstName + " " + curatorLastName;
+//        this.groupsCount = groupsCount;
         this.available = available;
     }
 

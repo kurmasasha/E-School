@@ -1,32 +1,28 @@
 package com.jm.dto;
 
-import com.jm.model.Course;
-import java.time.LocalDateTime;
-
-public class CourseDto {
+public class CoursePutDto {
 
     private Long courseId;
     private String name;
-    private String description;
-    private String htmlBody;
-    private Boolean available;
-    private LocalDateTime creatingTime;
-    private Long curatorId;
     private Long directionId;
+    private Long curatorId;
+    private Boolean available;
+    private String htmlBody;
+    private String about;
+    private String teacher;
 
-    public CourseDto(Long courseId, String name, String description,
-                     String htmlBody, Boolean available, LocalDateTime creatingTime, Long curatorId, Long directionId) {
+    public CoursePutDto(Long courseId, String name, Long directionId, Long curatorId, Boolean available, String htmlBody, String about, String teacher) {
         this.courseId = courseId;
         this.name = name;
-        this.description = description;
-        this.htmlBody = htmlBody;
-        this.available = available;
-        this.creatingTime = creatingTime;
-        this.curatorId = curatorId;
         this.directionId = directionId;
+        this.curatorId = curatorId;
+        this.available = available;
+        this.htmlBody = htmlBody;
+        this.about = about;
+        this.teacher = teacher;
     }
 
-    /* GETTERS AND SETTERS */
+    /* GETTERS AND SETTERS*/
 
     public Long getCourseId() {
         return courseId;
@@ -76,19 +72,19 @@ public class CourseDto {
         this.htmlBody = htmlBody;
     }
 
-    public LocalDateTime getCreatingTime() {
-        return creatingTime;
+    public String getAbout() {
+        return about;
     }
 
-    public void setCreatingTime(LocalDateTime creatingTime) {
-        this.creatingTime = creatingTime;
+    public void setAbout(String about) {
+        this.about = about;
     }
 
-    public String getDescription() {
-        return description;
+    public String getTeacher() {
+        return teacher;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTeacher(String teacher) {
+        this.teacher = teacher;
     }
 }

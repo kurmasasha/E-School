@@ -1,5 +1,7 @@
 package com.jm.dto;
 
+import com.jm.model.Direction;
+
 public class DirectionDto {
 
     private Long directionId;

@@ -14,4 +14,13 @@ public interface StudentGroupRepository extends JpaRepository<StudentGroup, Long
                                                 "group.studentList) " +
             "FROM StudentGroup group WHERE group.name = :search")
     List<StudentGroup> getGroupsWithSearch(String search);
+  
+      /**
+     * Возвращает количесвто груп, которые обучаются в определённом курсе
+     * @param name
+     * @return
+     */
+
+    @Query(value = "select count(sg.studentList.size) from StudentGroup sg where sg.course.name = ?1")
+    int getGroupCountInCourseName(String name);
 }

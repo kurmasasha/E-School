@@ -7,6 +7,12 @@ import java.util.List;
 
 public interface UserService {
 
+    /**
+     * Проверяет наличие юзера в базе по email
+     * @param email
+     * @return
+     */
+
     boolean isUserExist(String email);
 
     UserDto getUserById(Long userId);
