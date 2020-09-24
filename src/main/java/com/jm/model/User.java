@@ -1,9 +1,11 @@
 package com.jm.model;
 
-import com.jm.dto.UserDto;
-
-import javax.management.relation.Role;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
@@ -11,7 +13,7 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String email;
@@ -19,7 +21,6 @@ public class User {
     private String lastName;
     private String password;
     private Boolean enabled = true;
-    private Role role;
 
     @Column(name = "registration_date")
     private LocalDateTime registrationDate;
@@ -28,11 +29,13 @@ public class User {
 
     }
 
-    public User(UserDto userDto) {
-        this.id = userDto.getUserId();
-        this.email = userDto.getEmail();
-        this.firstName = userDto.getFirstName();
-        this.password = userDto.getLastName();
+    public User(String email, String firstName, String lastName, String password, Boolean enabled, LocalDateTime registrationDate) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.registrationDate = registrationDate;
+        this.enabled = enabled;
     }
 
     public Long getId() {
@@ -81,14 +84,6 @@ public class User {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public LocalDateTime getRegistrationDate() {

@@ -1,7 +1,5 @@
 package com.jm.dto;
 
-import java.util.List;
-
 public class StudentUserDto {
 
     private Long studentId;
@@ -9,17 +7,17 @@ public class StudentUserDto {
     private String firstName;
     private String lastName;
     private String directionName;
-    private List<GroupInfoDto> groups;
     private Boolean enabled;
+    private Long groupId;
 
     public StudentUserDto(Long studentId, String email, String firstName, String lastName, String directionName,
-                          List<GroupInfoDto> groups, Boolean enabled) {
+                          Long groupId, Boolean enabled) {
         this.studentId = studentId;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.directionName = directionName;
-        this.groups = groups;
+        this.groupId = groupId;
         this.enabled = enabled;
     }
 
@@ -72,12 +70,12 @@ public class StudentUserDto {
         this.directionName = directionName;
     }
 
-    public List<GroupInfoDto> getGroups() {
-        return groups;
+    public Long getGroupId() {
+        return groupId;
     }
 
-    public void setGroups(List<GroupInfoDto> groups) {
-        this.groups = groups;
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
     public Boolean getEnabled() {
