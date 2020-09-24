@@ -8,8 +8,8 @@ import java.util.List;
 @Entity
 public class TheoryTask extends Task {
 
-    @OneToMany
-    private List<PossibleAnswer> possibleAnswers;
+    @OneToMany(mappedBy = "theoryTask")
+    private List<ProbablyAnswer> probablyAnswers;
 
     public TheoryTask() {
         type = "theory";

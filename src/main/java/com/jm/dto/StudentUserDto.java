@@ -21,6 +21,13 @@ public class StudentUserDto {
         this.enabled = enabled;
     }
 
+    public StudentUserDto(Long studentId, String email, String firstName, String lastName) {
+        this.studentId = studentId;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     /* GETTERS AND SETTERS */
 
     public Long getStudentId() {
