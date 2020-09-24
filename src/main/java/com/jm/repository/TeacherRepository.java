@@ -1,5 +1,6 @@
 package com.jm.repository;
 
+import com.jm.dto.TeacherForGroupDto;
 import com.jm.dto.TeacherUserDto;
 import com.jm.model.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,4 +27,10 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
             "WHERE u.id = :id AND TYPE(u) = Teacher")
     TeacherUserDto getTeacherUserDtoWithTeacherId(@Param("id") Long teacherId);
 
+    @Query("select new com.jm.dto.TeacherForGroupDto(user.id," +
+                                                    "user.email, " +
+                                                    "user.firstName, " +
+                                                    "user.lastName)" +
+                                            "from User user WHERE TYPE(user) = Teacher")
+    List<TeacherForGroupDto> getAllTeachersForGroupDto();
 }
