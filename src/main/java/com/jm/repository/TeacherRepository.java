@@ -19,11 +19,11 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     @Query("SELECT new com.jm.dto.TeacherUserDto(u.id, u.email, u.firstName, u.lastName) " +
             "FROM User u " +
             "WHERE CONCAT(u.firstName, u.lastName) LIKE %?1% AND TYPE(u) = Teacher")
-    List<TeacherUserDto> getAllBySearch(String search);
+    List<TeacherUserDto> getTeachersWithSearch(String search);
 
     @Query("SELECT new com.jm.dto.TeacherUserDto(u.id, u.email, u.firstName, u.lastName) " +
             "FROM User u " +
             "WHERE u.id = :id AND TYPE(u) = Teacher")
-    TeacherUserDto getTeacherUserDtoByTeacherId(@Param("id") Long teacherId);
+    TeacherUserDto getTeacherUserDtoWithTeacherId(@Param("id") Long teacherId);
 
 }

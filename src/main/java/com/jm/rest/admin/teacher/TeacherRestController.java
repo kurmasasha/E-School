@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -30,11 +29,11 @@ public class TeacherRestController {
     }
 
     /**
-     * GET метод, возвращающий список преподавателей по ключу поиска. Если запрос пустой,
-     * то возвращаются все преподаватели.
-     * @param page
-     * @param search
-     * @return
+     * GET метод, возвращающий список учителей по параметру поиска
+     *
+     * @param page - номер страницы
+     * @param search - параметр поиска
+     * @return - список учителей, удовлетворяющий критериям поиска. Если параметр поиска пуст, то возвращаются все учителя
      */
     @GetMapping
     public ResponseDto<?> getTeachersBySearch(@RequestParam Integer page,
@@ -45,9 +44,10 @@ public class TeacherRestController {
     }
 
     /**
-     * GET метод, возвращающий одного преподавателя по его id.
-     * @param teacherId
-     * @return
+     * GET метод, возвращающий одного учителя по его id
+     *
+     * @param teacherId - уникальный id учителя
+     * @return - учитель, id которого равен заданному id
      */
     @GetMapping("/{teacherId}")
     public UserDto getTeacherById(@PathVariable Long teacherId) {
@@ -55,9 +55,10 @@ public class TeacherRestController {
     }
 
     /**
-     * POST метод, добавляющий преподавателя в базу.
-     * @param newTeacher
-     * @return
+     * POST метод, добавляющий учителя в базу
+     *
+     * @param newTeacher - новые данные, которые должны быть записаны в базу
+     * @return - статус окончания работы метода и информация, которая была записана в базу
      */
     @PostMapping
     public ResponseDto<?> saveNewTeacher(@RequestBody UserPostDto newTeacher) {
@@ -66,49 +67,48 @@ public class TeacherRestController {
     }
 
     /**
-     * PUT метод, обновляющий запись преподавателя.
-     * @param editedTeacherInfo
-     * @param teacherId
-     * @return
+     * PUT метод, обновляющий запись учителя
+     *
+     * @param editedTeacherInfo - обновлённая информация об учителе, которого требуется обновить
+     * @param teacherId - id учителя, которого требуется обновить
+     * @return - обновлённая информация об учителе
      */
     @PutMapping("/{teacherId}")
     public ResponseDto<?> updateTeacherInfo(@RequestBody UserDto editedTeacherInfo, @PathVariable Long teacherId) {
         if (service.updateTeacherInfo(editedTeacherInfo, teacherId)) {
-            List<TeacherUserDto> teachers = Arrays.asList(service.getTeacherUserDtoByTeacherId(teacherId));
-            PageDto<TeacherUserDto> pageDto = new PageDto<>(teachers.size(), 0, 0, 0, teachers);
-            return ResponseDto.ok(pageDto);
+            TeacherUserDto teacher = service.getTeacherUserDtoByTeacherId(teacherId);
+            return ResponseDto.ok(teacher);
         } else {
             return ResponseDto.error().build();
         }
     }
 
     /**
-     * PATCH метод, деактивирующий запись преподавателя.
-     * @param teacherId
-     * @return
+     * PATCH метод, деактивирующий запись учителя
+     *
+     * @param teacherId - id учителя, которого требуется деактивировать
+     * @return - запись деактивированного учителя
      */
     @PatchMapping("/{teacherId}/deactivate")
     public ResponseDto<?> deactivateTeacher(@PathVariable Long teacherId) {
         if (service.deactivateTeacherById(teacherId)) {
-            List<TeacherUserDto> teachers = Arrays.asList(service.getTeacherUserDtoByTeacherId(teacherId));
-            PageDto<TeacherUserDto> pageDto = new PageDto<>(teachers.size(), 0, 0, 0, teachers);
-            return ResponseDto.ok(pageDto);
+            TeacherUserDto teacher = service.getTeacherUserDtoByTeacherId(teacherId);
+            return ResponseDto.ok(teacher);
         } else {
             return ResponseDto.error().build();
         }
     }
 
     /**
-     * PATCH метод, активирующий запись преподавателя.
-     * @param teacherId
-     * @return
+     * PATCH метод, активирующий запись учителя
+     * @param teacherId - id учителя, которого требуется активировать
+     * @return - запись активированного учителя
      */
     @PatchMapping("/{teacherId}/activate")
     public ResponseDto<?> activateTeacher(@PathVariable Long teacherId) {
         if (service.activateTeacherById(teacherId)) {
-            List<TeacherUserDto> teachers = Arrays.asList(service.getTeacherUserDtoByTeacherId(teacherId));
-            PageDto<TeacherUserDto> pageDto = new PageDto<>(teachers.size(), 0, 0, 0, teachers);
-            return ResponseDto.ok(pageDto);
+            TeacherUserDto teacher = service.getTeacherUserDtoByTeacherId(teacherId);
+            return ResponseDto.ok(teacher);
         } else {
             return ResponseDto.error().build();
         }
