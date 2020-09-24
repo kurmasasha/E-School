@@ -1,28 +1,29 @@
 package com.jm.dto;
 
 import com.jm.model.Course;
+import java.time.LocalDateTime;
 
 public class CourseDto {
 
     private Long courseId;
     private String name;
-    private Long directionId;
-    private Long curatorId;
-    private Boolean available;
+    private String description;
     private String htmlBody;
-    private String about;
-    private String teacher;
+    private Boolean available;
+    private LocalDateTime creatingTime;
+    private Long curatorId;
+    private Long directionId;
 
-    public CourseDto(Long courseId, String name, Long directionId, Long curatorId, Boolean available,
-                     String htmlBody) {
+    public CourseDto(Long courseId, String name, String description,
+                     String htmlBody, Boolean available, LocalDateTime creatingTime, Long curatorId, Long directionId) {
         this.courseId = courseId;
         this.name = name;
-        this.directionId = directionId;
-        this.curatorId = curatorId;
-        this.available = available;
+        this.description = description;
         this.htmlBody = htmlBody;
-//        this.about = about;
-//        this.teacher = teacher;
+        this.available = available;
+        this.creatingTime = creatingTime;
+        this.curatorId = curatorId;
+        this.directionId = directionId;
     }
 
     /* GETTERS AND SETTERS */
@@ -75,19 +76,19 @@ public class CourseDto {
         this.htmlBody = htmlBody;
     }
 
-    public String getAbout() {
-        return about;
+    public LocalDateTime getCreatingTime() {
+        return creatingTime;
     }
 
-    public void setAbout(String about) {
-        this.about = about;
+    public void setCreatingTime(LocalDateTime creatingTime) {
+        this.creatingTime = creatingTime;
     }
 
-    public String getTeacher() {
-        return teacher;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTeacher(String teacher) {
-        this.teacher = teacher;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

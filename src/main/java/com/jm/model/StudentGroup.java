@@ -1,5 +1,8 @@
 package com.jm.model;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,7 +18,6 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "student_groups")
 public class StudentGroup {
 
     @Id

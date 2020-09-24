@@ -6,6 +6,7 @@ import com.jm.dto.CuratorForCourseDto;
 import com.jm.model.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import java.util.List;
 
 import java.util.List;
 
@@ -114,4 +115,16 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query(value = "select new com.jm.dto.CoursePageDto(c.id,c.name,c.direction.name,c.curator.lastName,c.curator.firstName,c.isAvailable) from Course c")
     List<CoursePageDto> getAllCoursePageDto();
 
+    @Query(value = "select new com.jm.dto.CourseDto(course.id," +
+                                                   "course.name," +
+                                                   "course.description," +
+                                                   "course.htmlBody," +
+                                                   "course.isAvailable," +
+                                                   "course.creatingTime," +
+                                                   "course.curator.id," +
+                                                   "course.direction.id) " +
+                                            "from Course course " +
+                                            "where course.direction.id = :directionId " +
+                                            "and course.isAvailable = true ")
+    List<CourseDto> findAllWithDirectionId(long directionId);
 }

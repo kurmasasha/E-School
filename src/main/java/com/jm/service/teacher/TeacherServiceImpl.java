@@ -22,10 +22,11 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     /**
-     * Метод апдейта для записи преподавателя.
-     * @param editedTeacherInfo
-     * @param teacherId
-     * @return
+     * Метод апдейта для записи преподавателя
+     *
+     * @param editedTeacherInfo - обновлённая информация об учителе
+     * @param teacherId - id учителя, которого требуется обновить
+     * @return - true, если учитель существует и апдейт прошёл успешно, false - иначе
      */
     @Override
     public boolean updateTeacherInfo(UserDto editedTeacherInfo, Long teacherId) {
@@ -41,9 +42,10 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     /**
-     * Метод деактивации записи пользователя.
-     * @param teacherId
-     * @return
+     * Метод деактивации записи пользователя
+     *
+     * @param teacherId - id учителя, которого требуется деактивировать
+     * @return - true, если учитель существует и деактивация прошла успешно, false - иначе
      */
     @Override
     public boolean deactivateTeacherById(Long teacherId) {
@@ -57,9 +59,10 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     /**
-     * Метод активации записи пользователя.
-     * @param teacherId
-     * @return
+     * Метод активации записи пользователя
+     *
+     * @param teacherId - id учителя, которого требуется активировать
+     * @return - true, если учитель существует и активация прошла успешно, false - иначе
      */
     @Override
     public boolean activateTeacherById(Long teacherId) {
@@ -73,45 +76,49 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     /**
-     * Метод поиска.
-     * @param search
-     * @return
+     * Метод поиска по заданному ключевому слову
+     *
+     * @param search - параметр поиска
+     * @return - все учителя, если параметр поиска пуст, или все учителя, удовлетворяющие параметру поиска
      */
     @Override
     public List<TeacherUserDto> getTeachersBySearch(String search) {
         if (search.isEmpty()) {
             return repository.getAllTeachers();
         } else {
-            return repository.getAllBySearch(search);
+            return repository.getTeachersWithSearch(search);
         }
     }
 
     /**
-     * Метод получения преподавателя по его id.
-     * @param teacherId
-     * @return
+     * Метод получения учителя по его id
+     *
+     * @param teacherId - id учителя, запись которого требуется получить
+     * @return - учитель, чей id совпадает с заданным
      */
     @Override
     public UserDto getTeacherById(Long teacherId) {
-        TeacherUserDto teacherUserDto = repository.getTeacherUserDtoByTeacherId(teacherId);
+        TeacherUserDto teacherUserDto = repository.getTeacherUserDtoWithTeacherId(teacherId);
         return new UserDto(teacherUserDto.getTeacherId(), teacherUserDto.getEmail(),
                 teacherUserDto.getFirstName(), teacherUserDto.getLastName());
     }
 
     /**
-     * Метод получения TeacherUserDto по id преподавателя.
-     * @param teacherId
-     * @return
+     * Метод получения TeacherUserDto по id учителя
+     *
+     * @param teacherId - id учителя, запись которого требуется получить
+     * @return - учитель, чей id совпадает с заданным
      */
     @Override
     public TeacherUserDto getTeacherUserDtoByTeacherId(Long teacherId) {
-        return repository.getTeacherUserDtoByTeacherId(teacherId);
+        return repository.getTeacherUserDtoWithTeacherId(teacherId);
     }
 
     /**
-     * Метод добавления преподавателя в бд.
-     * @param newTeacher
-     * @return
+     * Метод добавления преподавателя в бд
+     *
+     * @param newTeacher - учитель, которого требуется добавить в базу
+     * @return - true, если учитель добавился
      */
     @Override
     public boolean saveNewTeacher(UserPostDto newTeacher) {

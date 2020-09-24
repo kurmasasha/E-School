@@ -1,145 +1,180 @@
---- USERS TABLE TEST DATA ---
+--- USERS TEST DATA ---
+insert into users (dtype, email, enabled, first_name, last_name, password, registration_date)
+VALUES ('Teacher', 'teacher1@mail.com', true, 'Steven', 'Hawking', '123456', '2019-05-20');
 
-insert into users (dtype, email, enabled, first_name, last_name, password)
-VALUES ('Teacher', 'teacher1@mail.com', true, 'TeacherName1', 'TeacherLastName1', '123456');
+insert into users (dtype, email, enabled, first_name, last_name, password, registration_date)
+VALUES ('Teacher', 'teacher2@mail.com', true, 'Gordon', 'Freeman', '7777777', '2019-07-11');
 
-insert into users (dtype, email, enabled, first_name, last_name, password)
-VALUES ('Teacher', 'teacher2@mail.com', true, 'TeacherName2', 'TeacherLastName2', '7777777');
+insert into users (dtype, email, enabled, first_name, last_name, password, registration_date)
+VALUES ('User', 'user1@mail.com', true, 'UserName1', 'UserLastName1', '555555', '2019-02-05');
 
-insert into users (dtype, email, enabled, first_name, last_name, password)
-VALUES ('User', 'user1@mail.com', true, 'UserName1', 'UserLastName1', '555555');
+insert into users (dtype, email, enabled, first_name, last_name, password, registration_date)
+VALUES ('User', 'user2@mail.com', true, 'UserName2', 'UserLastName2', '11111111', '2019-03-17');
 
-insert into users (dtype, email, enabled, first_name, last_name, password)
-VALUES ('User', 'user2@mail.com', true, 'UserName2', 'UserLastName2', '11111111');
+insert into users (dtype, email, enabled, first_name, last_name, password, registration_date)
+VALUES ('Admin', 'admin1@mail.com', true, 'Mark', 'Spencer', '6666666', '2019-05-20');
 
-insert into users (dtype, email, enabled, first_name, last_name, password)
-VALUES ('Admin', 'admin1@mail.com', true, 'AdminName1', 'AdminLastName1', '6666666');
+insert into users (dtype, email, enabled, first_name, last_name, password, registration_date)
+VALUES ('Admin', 'admin2@mail.com', true, 'Helen', 'Vancouver', '1212121212', '2019-03-02');
 
-insert into users (dtype, email, enabled, first_name, last_name, password)
-VALUES ('Admin', 'admin2@mail.com', true, 'AdminName2', 'AdminLastName2', '1212121212');
+insert into users (dtype, email, enabled, first_name, last_name, password, registration_date)
+VALUES ('Student', 'student1@mail.com', true, 'Ian', 'Johnson', '999999', '2019-08-14');
 
-insert into users (dtype, email, enabled, first_name, last_name, password)
-VALUES ('Student', 'student1@mail.com', true, 'StudentName1', 'StudentLastName1', '999999');
+insert into users (dtype, email, enabled, first_name, last_name, password, registration_date)
+VALUES ('Student', 'student2@mail.com', true, 'Kevin', 'MacCullister', '8888888', '2019-12-06');
 
-insert into users (dtype, email, enabled, first_name, last_name, password)
-VALUES ('Student', 'student2@mail.com', true, 'StudentName2', 'StudentLastName2', '8888888');
+--- DIRECTIONS TEST DATA ---
+insert into directions (name)
+values ('DirectionName1');
+insert into directions (name)
+values ('DirectionName2');
 
---- CHAPTER TABLE TEST DATA ---
+--- COURSES TEST DATA ---
+insert into courses (creating_time, description, html_body, is_available, name, teacher_id, direction_id)
+values ('2019-06-22 19:10:25-07', 'Description1', 'HtmlBody1', true, 'CourseName1', 1, 1);
 
-insert into chapter (name, position)
-values ('Chapter1', 1);
+insert into courses (creating_time, description, html_body, is_available, name, teacher_id, direction_id)
+values ('2019-07-12 12:11:17-09', 'Description2', 'HtmlBody2', false, 'CourseName2', 2, 2);
 
-insert into chapter (name, position)
-values ('Chapter2', 2);
+--- MODULES TEST DATA ---
+insert into modules (description, is_open, name, open_date, position, course_id)
+values ('ModuleDescription1', true, 'ModuleName1', '2020-08-10', 1, 1);
 
---- COURSE TABLE TEST DATA ---
+insert into modules (description, is_open, name, open_date, position, course_id)
+values ('ModuleDescription2', true, 'ModuleName2', '2020-08-11', 2, 2);
 
-insert into course (name, html_body, about_teacher_info, is_available)
-values ('Course1', 'HtmlBody1', 'TeacherInfo1', true);
+--- CHAPTERS TEST DATA ---
+insert into chapters (name, position, module_id)
+values ('Chapter1', 1, 1);
+insert into chapters (name, position, module_id)
+values ('Chapter2', 2, 2);
 
-insert into course (name, html_body, about_teacher_info, is_available)
-values ('Course2', 'HtmlBody2', 'TeacherInfo2', true);
+--- TASKS TEST DATA ---
+insert into tasks (dtype, description, is_available, name, points, position, type, answer)
+VALUES ('WordAnswerTask', 'DescriptionTask1', true, 'Task1', 10, 1, 'TaskType1', 'TaskAnswer1');
 
---- COURSE INFO TABLE TEST DATA ---
+insert into tasks (dtype, description, is_available, name, points, position, type, answer)
+VALUES ('WordAnswerTask', 'DescriptionTask2', false, 'Task2', 20, 2, 'TaskType2', 'TaskAnswer2');
 
-insert into course_info (about, description)
-values ('About1', 'Description1');
+insert into tasks (dtype, description, is_available, name, points, position, type, answer)
+VALUES ('LectureTask', 'DescriptionTask3', true, 'Task3', 30, 3, 'TaskType3', 'TaskAnswer3');
 
-insert into course_info (about, description)
-values ('About2', 'Description2');
+insert into tasks (dtype, description, is_available, name, points, position, type, answer)
+VALUES ('LectureTask', 'DescriptionTask4', false, 'Task4', 40, 4, 'TaskType4', 'TaskAnswer4');
 
---- COURSE TASK TABLE TEST DATA ---
+insert into tasks (dtype, description, is_available, name, points, position, type, answer)
+VALUES ('OptionTask', 'DescriptionTask5', true, 'Task5', 50, 5, 'TaskType5', 'TaskAnswer5');
 
-insert into course_task (position) values (1);
-insert into course_task (position) values (2);
+insert into tasks (dtype, description, is_available, name, points, position, type, answer)
+VALUES ('OptionTask', 'DescriptionTask5', false, 'Task6', 60, 6, 'TaskType6', 'TaskAnswer6');
 
---- CUSTOM ANSWER TABLE TEST DATA ---
+insert into tasks (dtype, description, is_available, name, points, position, type, answer)
+VALUES ('TheoryTask', 'DescriptionTask7', true, 'Task7', 70, 7, 'TaskType7', 'TaskAnswer7');
 
-insert into custom_answer (text) values ('CustomAnswer1');
-insert into custom_answer (text) values ('CustomAnswer2');
+insert into tasks (dtype, description, is_available, name, points, position, type, answer)
+VALUES ('TheoryTask', 'DescriptionTask8', false, 'Task8', 80, 8, 'TaskType8', 'TaskAnswer8');
 
---- DIRECTION TABLE TEST DATA ---
+insert into tasks (dtype, description, is_available, name, points, position, type, answer)
+VALUES ('Task', 'DescriptionTask9', true, 'Task9', 90, 9, 'TaskType9', 'TaskAnswer9');
 
-insert into direction (name) values ('DirectionName1');
-insert into direction (name) values ('DirectionName2');
+insert into tasks (dtype, description, is_available, name, points, position, type, answer)
+VALUES ('Task', 'DescriptionTask10', false, 'Task10', 100, 10, 'TaskType10', 'TaskAnswer10');
 
---- MODULE TABLE TEST DATA ---
+--- PERSONAL STUDENT COURSES TEST DATA ---
+insert into personal_student_courses (adding_date, is_completed, course_id, user_id)
+values ('2020-01-03', true, 1, 1);
+insert into personal_student_courses (adding_date, is_completed, course_id, user_id)
+values ('2020-02-09', false, 2, 2);
 
-insert into module (description, is_open, name, open_date, position)
-values ('ModuleDescription1', true, 'ModuleName1', '2020-08-10', 1);
+--- PERSONAL STUDENTS COURSE TASKS TEST DATA ---
+insert into personal_students_course_tasks (is_completed, is_solved, personal_student_course_id, task_id)
+values (true, true, 1, 1);
 
-insert into module (description, is_open, name, open_date, position)
-values ('ModuleDescription2', true, 'ModuleName2', '2020-08-11', 2);
+insert into personal_students_course_tasks (is_completed, is_solved, personal_student_course_id, task_id)
+values (false, false, 2, 2);
 
---- ORDERING TASK ANSWER ITEM TABLE TEST DATA ---
+--- POSSIBLE ANSWERS ---
+insert into possible_answers (is_right, text, theory_task_id)
+values (true, 'ProbablyAnswerText1', 1);
+insert into possible_answers (is_right, text, theory_task_id)
+values (false, 'ProbablyAnswerText2', 2);
 
-insert into ordering_task_answer_item (position) values (1);
-insert into ordering_task_answer_item (position) values (2);
+--- OPTION TASK ITEMS TEST DATA ---
+insert into option_task_items (item_text, position, option_task_id)
+values ('ItemText1', 1, 1);
+insert into option_task_items (item_text, position, option_task_id)
+values ('ItemText2', 2, 2);
 
---- ORDERING TASK ITEM TABLE TEST DATA ---
+--- POSSIBLE STUDENT TASK ANSWERS ---
+insert into possible_student_task_answers (text, possible_answer_id)
+values ('AnswerText1', 1);
+insert into possible_student_task_answers (text, possible_answer_id)
+values ('AnswerText2', 2);
 
-insert into ordering_task_item (item_text, position) values ('OrderingTaskItem1', 1);
-insert into ordering_task_item (item_text, position) values ('OrderingTaskItem2', 2);
+--- STUDENT TASK ANSWERS ---
+insert into student_task_answers (dtype, date, is_right, answer, personal_student_course_task_id,
+                                  possible_student_task_answer_id)
+values ('OptionTaskStudentAnswer', '2020-05-10', true, 'TaskAnswer1', 1, 1);
 
---- PROBABLY ANSWER TAB:E TEST DATA ---
+insert into student_task_answers (dtype, date, is_right, answer, personal_student_course_task_id,
+                                  possible_student_task_answer_id)
+values ('OptionTaskStudentAnswer', '2020-06-17', false, 'TaskAnswer2', 2, 2);
 
-insert into probably_answer (is_right, text) values (true, 'ProbablyAnswerText1');
-insert into probably_answer (is_right, text) values (false, 'ProbablyAnswerText2');
+insert into student_task_answers (dtype, date, is_right, answer, personal_student_course_task_id,
+                                  possible_student_task_answer_id)
+values ('TheoryStudentTaskAnswer', '2020-04-05', true, 'TaskAnswer3', 1, 1);
 
---- STUDENT COURSE INFO TABLE TEST DATA ---
+insert into student_task_answers (dtype, date, is_right, answer, personal_student_course_task_id,
+                                  possible_student_task_answer_id)
+values ('TheoryStudentTaskAnswer', '2020-03-09', false, 'TaskAnswer4', 2, 2);
 
-insert into student_course_info (adding_date, is_completed) values ('2020-01-03', true);
-insert into student_course_info (adding_date, is_completed) values ('2020-02-09', false);
+insert into student_task_answers (dtype, date, is_right, answer, personal_student_course_task_id,
+                                  possible_student_task_answer_id)
+values ('WordStudentTaskAnswer', '2020-08-18', true, 'TaskAnswer5', 1, 1);
 
---- STUDENT COURSE TASK TABLE TEST DATA ---
+insert into student_task_answers (dtype, date, is_right, answer, personal_student_course_task_id,
+                                  possible_student_task_answer_id)
+values ('WordStudentTaskAnswer', '2020-11-11', false, 'TaskAnswer6', 2, 2);
 
-insert into student_course_task (is_reset, is_right, is_solved, is_wrong)
-values (false, true, true, false);
+--- UPDATE POSSIBLE STUDENT TASK ANSWERS TABLE ---
+update possible_student_task_answers
+set theory_student_task_answer_id=3
+where id = 1;
+update possible_student_task_answers
+set theory_student_task_answer_id=4
+where id = 2;
 
-insert into student_course_task (is_reset, is_right, is_solved, is_wrong)
-values (true, false, true, true);
+--- OPTION STUDENT TASK ITEMS TEST DATA ---
+insert into option_student_task_items (position, option_task_student_answer_id, option_task_item_id)
+values (1, 1, 1);
 
---- STUDENT COURSE TASK ANSWER TABLE TEST DATA ---
+insert into option_student_task_items (position, option_task_student_answer_id, option_task_item_id)
+values (2, 2, 2);
 
-insert into student_course_task_answer (answer, date, is_right)
-values ('CourseTaskAnswer1', '2020-05-10', true);
+--- STUDENT GROUPS TEST DATA ---
+insert into student_groups (name, course_id, teacher_id)
+values ('Group1', 1, 1);
+insert into student_groups (name, course_id, teacher_id)
+values ('Group2', 2, 2);
 
-insert into student_course_task_answer (answer, date, is_right)
-values ('CourseTaskAnswer2', '2020-06-17', false);
-
---- STUDENT GROUP TABLE TEST DATA ---
-
-insert into student_group (name) values ('StudentGroupName1');
-insert into student_group (name) values ('StudentGroupName2');
-
---- TASK TABLE TEST DATA ---
-
-insert into task (dtype, description, is_available, points, title, type, answer)
-VALUES ('WordAnswerTask', 'DescriptionTask1', true, 10, 'Task1', 'TaskType1', 'TaskAnswer1');
-
-insert into task (dtype, description, is_available, points, title, type, answer)
-VALUES ('WordAnswerTask', 'DescriptionTask2', false, 20, 'Task2', 'TaskType2', 'TaskAnswer2');
-
-insert into task (dtype, description, is_available, points, title, type, answer)
-VALUES ('LectureTask', 'DescriptionTask3', true, 30, 'Task3', 'TaskType3', 'TaskAnswer3');
-
-insert into task (dtype, description, is_available, points, title, type, answer)
-VALUES ('LectureTask', 'DescriptionTask4', false, 40, 'Task4', 'TaskType4', 'TaskAnswer4');
-
-insert into task (dtype, description, is_available, points, title, type, answer)
-VALUES ('OrderingTask', 'DescriptionTask5', true, 50, 'Task5', 'TaskType5', 'TaskAnswer5');
-
-insert into task (dtype, description, is_available, points, title, type, answer)
-VALUES ('OrderingTask', 'DescriptionTask5', false, 60, 'Task6', 'TaskType6', 'TaskAnswer6');
-
-insert into task (dtype, description, is_available, points, title, type, answer)
-VALUES ('TheoryTask', 'DescriptionTask7', true, 70, 'Task7', 'TaskType7', 'TaskAnswer7');
-
-insert into task (dtype, description, is_available, points, title, type, answer)
-VALUES ('TheoryTask', 'DescriptionTask8', false, 80, 'Task8', 'TaskType8', 'TaskAnswer8');
-
-insert into task (dtype, description, is_available, points, title, type, answer)
-VALUES ('Task', 'DescriptionTask9', true, 90, 'Task9', 'TaskType9', 'TaskAnswer9');
-
-insert into task (dtype, description, is_available, points, title, type, answer)
-VALUES ('Task', 'DescriptionTask10', false, 100, 'Task10', 'TaskType10', 'TaskAnswer10');
+-- SETTING IDS INTO LINK TABLES ---
+insert into student_group_student (student_group_id, student_id)
+values (1, 7);
+insert into student_group_student (student_group_id, student_id)
+values (2, 8);
+insert into student_task_answers_option_student_task_answer_item (option_task_student_answer_id, option_student_task_answer_item_id)
+values (1, 1);
+insert into student_task_answers_option_student_task_answer_item (option_task_student_answer_id, option_student_task_answer_item_id)
+values (2, 2);
+insert into task_chapter (task_id, chapter_id)
+values (1, 1);
+insert into task_chapter (task_id, chapter_id)
+values (2, 2);
+insert into tasks_possible_answers (theory_task_id, possible_answers_id)
+values (7, 1);
+insert into tasks_possible_answers (theory_task_id, possible_answers_id)
+values (8, 2);
+insert into tasks_task_items (option_task_id, task_items_id)
+values (5, 1);
+insert into tasks_task_items (option_task_id, task_items_id)
+values (6, 2);
